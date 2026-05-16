@@ -51,28 +51,30 @@ export default function VehicleSizeSelector({ onSelect, selected }: VehicleSizeS
   return (
     <section
       id="vehicle-size-selector"
-      className="relative py-8 md:py-12 flex flex-col items-center px-4"
-      style={{ background: 'linear-gradient(135deg, #FFB800 0%, #FFA500 100%)' }}
+      className="relative py-20 md:py-28 flex flex-col items-center px-4"
+      style={{ background: 'linear-gradient(135deg, #FFB800 0%, #FFA500 100%)', overflow: 'visible' }}
     >
-      {/* Fade top */}
-      <div className="absolute top-0 left-0 right-0 pointer-events-none z-10" style={{
-        height: '45%',
-        background: 'linear-gradient(to bottom, #000000 0%, rgba(0,0,0,0.95) 15%, rgba(0,0,0,0.8) 35%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.15) 80%, transparent 100%)',
+      {/* Fade top — extends 140px into the section above */}
+      <div className="absolute left-0 right-0 pointer-events-none z-10" style={{
+        top: -140,
+        height: 'calc(55% + 140px)',
+        background: 'linear-gradient(to bottom, #000000 0%, #000000 20%, rgba(0,0,0,0.97) 35%, rgba(0,0,0,0.88) 50%, rgba(0,0,0,0.65) 68%, rgba(0,0,0,0.3) 83%, rgba(0,0,0,0.05) 95%, transparent 100%)',
       }} />
-      {/* Fade bottom */}
-      <div className="absolute bottom-0 left-0 right-0 pointer-events-none z-10" style={{
-        height: '45%',
-        background: 'linear-gradient(to top, #000000 0%, rgba(0,0,0,0.95) 15%, rgba(0,0,0,0.8) 35%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.15) 80%, transparent 100%)',
+      {/* Fade bottom — extends 140px into the section below */}
+      <div className="absolute left-0 right-0 pointer-events-none z-10" style={{
+        bottom: -140,
+        height: 'calc(55% + 140px)',
+        background: 'linear-gradient(to top, #000000 0%, #000000 20%, rgba(0,0,0,0.97) 35%, rgba(0,0,0,0.88) 50%, rgba(0,0,0,0.65) 68%, rgba(0,0,0,0.3) 83%, rgba(0,0,0,0.05) 95%, transparent 100%)',
       }} />
 
-      <p className="relative z-20 text-black text-xs md:text-sm font-black tracking-[0.25em] uppercase mb-1 md:mb-2 mt-6 md:mt-8">
+      <p className="relative z-20 text-black text-xs md:text-sm font-black tracking-[0.25em] uppercase mb-1 md:mb-2">
         ¿Qué vehículo traes?
       </p>
       <p className="relative z-20 text-black/50 text-[10px] md:text-xs font-medium tracking-wider uppercase mb-6 md:mb-8">
         Elige el tamaño para ver el precio
       </p>
 
-      <div className="relative z-20 flex items-stretch gap-3 md:gap-5 mb-6 md:mb-8">
+      <div className="relative z-20 flex items-stretch gap-3 md:gap-5 mb-0">
         {vehicleSizes.map((size) => {
           const isActive = selected === size.id;
           const subtitle = sizeSubtitleMap[size.id];

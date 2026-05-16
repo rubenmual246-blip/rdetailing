@@ -80,11 +80,19 @@ export default function BasicService({ service, vehicleSize }: BasicServiceProps
       {/* MOBILE */}
       <div className="block md:hidden">
         <div className="rounded-2xl overflow-hidden border border-[#FFB800]/40 bg-[#111]">
-          <div className="relative h-[180px] overflow-hidden">
+          <div
+            className="relative h-[180px] overflow-hidden cursor-pointer"
+            onClick={() => isExpanded && setIsExpanded(false)}
+          >
             <img src={currentImage} alt={service.name} className="w-full h-full object-cover object-top" />
             <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/70 pointer-events-none" />
           </div>
-          <div className="px-4 pt-2.5 pb-3">
+          <div
+            className={`px-4 pt-2.5 pb-3 ${isExpanded ? 'cursor-pointer' : ''}`}
+            onClick={(e) => {
+              if (isExpanded && (e.target as HTMLElement).tagName !== 'BUTTON') setIsExpanded(false);
+            }}
+          >
             {service.slogan && (
               <p className="text-[#FFB800] text-[9px] font-light tracking-[0.2em] uppercase mb-0.5">{service.slogan}</p>
             )}
@@ -92,7 +100,7 @@ export default function BasicService({ service, vehicleSize }: BasicServiceProps
             <p className="text-[#FFB800] text-xl font-bold mb-0.5">{basePrice}€</p>
             {service.duration && <p className="text-white/40 text-[9px] font-light mb-2">{service.duration}</p>}
             <button
-              onClick={() => setIsExpanded(!isExpanded)}
+              onClick={(e) => { e.stopPropagation(); setIsExpanded(!isExpanded); }}
               className="self-start border border-[#FFB800]/60 text-[#FFB800] py-1 px-3 rounded-full text-[9px] tracking-[0.12em] uppercase cursor-pointer"
             >
               {isExpanded ? 'MENOS INFO' : 'MÁS INFO'}

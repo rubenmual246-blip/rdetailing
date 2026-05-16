@@ -70,7 +70,12 @@ export default function Services({ selectedVehicleSize }: ServicesProps) {
             <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/70 pointer-events-none"></div>
           </div>
 
-          <div className="bg-[#111] px-3 md:px-5 pt-3 md:pt-4 pb-3 md:pb-4">
+          <div
+            className={`bg-[#111] px-3 md:px-5 pt-3 md:pt-4 pb-3 md:pb-4 ${absoluteExpanded ? 'cursor-pointer' : ''}`}
+            onClick={(e) => {
+              if (absoluteExpanded && (e.target as HTMLElement).tagName !== 'BUTTON' && (e.target as HTMLElement).tagName !== 'A') setAbsoluteExpanded(false);
+            }}
+          >
             {absoluteService.slogan && (
               <p className="text-[#FFB800] text-[8px] md:text-xs font-light tracking-[0.15em] uppercase mb-0.5">
                 {absoluteService.slogan}
@@ -90,7 +95,7 @@ export default function Services({ selectedVehicleSize }: ServicesProps) {
 
             <div className="flex gap-2">
               <button
-                onClick={() => setAbsoluteExpanded(!absoluteExpanded)}
+                onClick={(e) => { e.stopPropagation(); setAbsoluteExpanded(!absoluteExpanded); }}
                 className="flex-1 border border-[#FFB800]/60 text-[#FFB800] py-1.5 md:py-2 rounded-full font-light text-[8px] md:text-[11px] tracking-[0.1em] uppercase hover:bg-[#FFB800]/10 transition-all duration-300 whitespace-nowrap cursor-pointer"
               >
                 {absoluteExpanded ? 'MENOS INFO' : 'MÁS INFO'}

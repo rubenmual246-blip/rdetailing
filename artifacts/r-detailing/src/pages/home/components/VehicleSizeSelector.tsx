@@ -51,28 +51,16 @@ export default function VehicleSizeSelector({ onSelect, selected }: VehicleSizeS
   return (
     <section
       id="vehicle-size-selector"
-      className="relative py-8 md:py-12 flex flex-col items-center px-4 overflow-hidden"
-      style={{ background: '#E8590C' }}
+      className="bg-[#FFB800] py-8 md:py-12 flex flex-col items-center px-4"
     >
-      {/* Left fade to black */}
-      <div
-        className="absolute inset-y-0 left-0 pointer-events-none z-10"
-        style={{ width: '18%', background: 'linear-gradient(to right, #000000, transparent)' }}
-      />
-      {/* Right fade to black */}
-      <div
-        className="absolute inset-y-0 right-0 pointer-events-none z-10"
-        style={{ width: '18%', background: 'linear-gradient(to left, #000000, transparent)' }}
-      />
-
-      <p className="relative z-20 text-white text-xs md:text-sm font-black tracking-[0.25em] uppercase mb-1 md:mb-2">
+      <p className="text-black text-xs md:text-sm font-black tracking-[0.25em] uppercase mb-1 md:mb-2">
         ¿Qué vehículo traes?
       </p>
-      <p className="relative z-20 text-white/60 text-[10px] md:text-xs font-medium tracking-wider uppercase mb-6 md:mb-8">
+      <p className="text-black/50 text-[10px] md:text-xs font-medium tracking-wider uppercase mb-6 md:mb-8">
         Elige el tamaño para ver el precio
       </p>
 
-      <div className="relative z-20 flex items-stretch gap-3 md:gap-5">
+      <div className="flex items-stretch gap-3 md:gap-5">
         {vehicleSizes.map((size) => {
           const isActive = selected === size.id;
           const subtitle = sizeSubtitleMap[size.id];
@@ -98,7 +86,7 @@ export default function VehicleSizeSelector({ onSelect, selected }: VehicleSizeS
 
               <span
                 className={`text-[10px] md:text-sm font-bold tracking-wide uppercase text-center leading-tight ${
-                  isActive ? 'text-[#FFB800]' : 'text-white'
+                  isActive ? 'text-[#FFB800]' : 'text-black'
                 }`}
               >
                 {size.label}
@@ -107,7 +95,7 @@ export default function VehicleSizeSelector({ onSelect, selected }: VehicleSizeS
               {subtitle && (
                 <span
                   className={`text-[7px] md:text-[10px] text-center leading-tight font-medium ${
-                    isActive ? 'text-white/60' : 'text-white/60'
+                    isActive ? 'text-white/60' : 'text-black/50'
                   }`}
                 >
                   {subtitle}

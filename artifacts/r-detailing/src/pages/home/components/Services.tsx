@@ -59,15 +59,8 @@ export default function Services({ selectedVehicleSize }: ServicesProps) {
         {/* Basic Service */}
         <BasicService service={basicService} vehicleSize={selectedVehicleSize} />
 
-        {/* Divider */}
-        <div className="flex items-center gap-4">
-          <div className="flex-1 h-px bg-[#FFB800]/20"></div>
-          <span className="text-[#FFB800]/40 text-xs tracking-widest uppercase">o</span>
-          <div className="flex-1 h-px bg-[#FFB800]/20"></div>
-        </div>
-
         {/* Absolute Detailing */}
-        <div ref={absoluteCardRef} className="w-full rounded-2xl overflow-hidden border border-[#FFB800]/40" style={{ background: '#111' }}>
+        <div ref={absoluteCardRef} className="w-full rounded-2xl overflow-hidden border border-[#FFB800]/40 mt-8 md:mt-16" style={{ background: '#111' }}>
           <div className="relative overflow-hidden" style={{ height: 'clamp(140px, 28vw, 240px)' }}>
             <img
               src={absoluteImage}

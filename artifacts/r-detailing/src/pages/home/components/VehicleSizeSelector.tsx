@@ -55,11 +55,15 @@ export default function VehicleSizeSelector({ onSelect, selected }: VehicleSizeS
       style={{ background: 'linear-gradient(135deg, #FFB800 0%, #FFA500 100%)' }}
     >
       {/* Fade top */}
-      <div className="absolute top-0 left-0 right-0 h-20 md:h-28 pointer-events-none z-10"
-        style={{ background: 'linear-gradient(to bottom, #000 0%, transparent 100%)' }} />
+      <div className="absolute top-0 left-0 right-0 pointer-events-none z-10" style={{
+        height: '45%',
+        background: 'linear-gradient(to bottom, #000000 0%, rgba(0,0,0,0.95) 15%, rgba(0,0,0,0.8) 35%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.15) 80%, transparent 100%)',
+      }} />
       {/* Fade bottom */}
-      <div className="absolute bottom-0 left-0 right-0 h-20 md:h-28 pointer-events-none z-10"
-        style={{ background: 'linear-gradient(to top, #000 0%, transparent 100%)' }} />
+      <div className="absolute bottom-0 left-0 right-0 pointer-events-none z-10" style={{
+        height: '45%',
+        background: 'linear-gradient(to top, #000000 0%, rgba(0,0,0,0.95) 15%, rgba(0,0,0,0.8) 35%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.15) 80%, transparent 100%)',
+      }} />
 
       <p className="relative z-20 text-black text-xs md:text-sm font-black tracking-[0.25em] uppercase mb-1 md:mb-2 mt-6 md:mt-8">
         ¿Qué vehículo traes?

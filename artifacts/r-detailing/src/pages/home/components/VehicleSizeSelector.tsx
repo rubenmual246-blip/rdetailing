@@ -26,12 +26,6 @@ const vehicleSizes: VehicleSize[] = [
     imageUrl: 'https://public.readdy.ai/ai/img_res/fdb42f0b-b8cf-4a12-9379-2ec9eaf870bd.png',
     iconScale: 'scale-[1.08]',
   },
-  {
-    id: 'furgon',
-    label: 'Furgón',
-    imageUrl: 'https://public.readdy.ai/ai/img_res/e0c0d38d-a8f3-431d-8b3b-2e5b58ecef48.png',
-    iconScale: 'scale-[1.15]',
-  },
 ];
 
 interface VehicleSizeSelectorProps {

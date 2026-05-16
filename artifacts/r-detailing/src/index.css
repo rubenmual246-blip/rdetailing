@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+  body {
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    background-color: black;
+    color: white;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+}
+
+@keyframes revealUp {
+  0% { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.reveal-section { animation: revealUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+.reveal-delay-1 { animation-delay: 0.1s; }
+.reveal-delay-2 { animation-delay: 0.3s; }
+.reveal-delay-3 { animation-delay: 0.5s; }
+.reveal-delay-4 { animation-delay: 0.7s; }
+
+@keyframes staggerIn {
+  0% { opacity: 0; transform: translateY(24px) scale(0.98); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes staggerSlideIn {
+  0% { opacity: 0; transform: translateX(-20px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+.animate-stagger-in { animation: staggerSlideIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+.stagger-delay-0 { animation-delay: 0ms; }
+.stagger-delay-1 { animation-delay: 120ms; }
+.stagger-delay-2 { animation-delay: 240ms; }
+
+@keyframes pricePop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+.animate-price-pop { animation: pricePop 0.35s cubic-bezier(0.22, 1, 0.36, 1) both; display: inline-block; }
+
+@keyframes fadeInFast {
+  0% { opacity: 0; transform: scale(0.98); }
+  100% { opacity: 1; transform: scale(1); }
+}
+.animate-fade-in-fast { animation: fadeInFast 0.2s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+@keyframes staggerUp {
+  0% { opacity: 0; transform: translateY(16px) scale(0.96); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+.animate-stagger-up { animation: staggerUp 0.35s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.1s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.2s; }
+.stagger-5 { animation-delay: 0.25s; }
+
+@keyframes crossFade {
+  0% { opacity: 0; transform: scale(1.02); filter: brightness(1.2); }
+  100% { opacity: 1; transform: scale(1); filter: brightness(1); }
+}
+.animate-cross-fade { animation: crossFade 0.45s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseSoft {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0px rgba(255, 184, 0, 0); }
+  50% { opacity: 0.85; box-shadow: 0 0 12px rgba(255, 184, 0, 0.25); }
+}
+.animate-pulse-soft { animation: pulseSoft 2.5s ease-in-out infinite; }

@@ -51,13 +51,16 @@ export default function VehicleSizeSelector({ onSelect, selected }: VehicleSizeS
   return (
     <section
       id="vehicle-size-selector"
-      className="bg-[#141210] pt-3 md:pt-5 pb-5 md:pb-8 flex flex-col items-center px-4 border-y border-[#FFB800]/10"
+      className="bg-[#FFB800] py-8 md:py-12 flex flex-col items-center px-4"
     >
-      <p className="text-[#FFB800] text-sm md:text-lg tracking-widest uppercase mb-4 md:mb-6 font-bold">
-        Elige el tamaño del vehículo
+      <p className="text-black text-xs md:text-sm font-black tracking-[0.25em] uppercase mb-1 md:mb-2">
+        ¿Qué vehículo traes?
+      </p>
+      <p className="text-black/50 text-[10px] md:text-xs font-medium tracking-wider uppercase mb-6 md:mb-8">
+        Elige el tamaño para ver el precio
       </p>
 
-      <div className="flex items-stretch gap-2 md:gap-4 max-w-3xl">
+      <div className="flex items-stretch gap-3 md:gap-5">
         {vehicleSizes.map((size) => {
           const isActive = selected === size.id;
           const subtitle = sizeSubtitleMap[size.id];
@@ -65,24 +68,25 @@ export default function VehicleSizeSelector({ onSelect, selected }: VehicleSizeS
             <button
               key={size.id}
               onClick={() => handleSelect(size.id)}
-              className={`flex flex-col items-center justify-center gap-1 md:gap-1.5 rounded-xl border px-3 py-3 md:px-5 md:py-4 transition-all duration-150 cursor-pointer min-w-[72px] md:min-w-[100px] ${
+              className={`flex flex-col items-center justify-center gap-2 md:gap-2.5 rounded-2xl px-4 py-4 md:px-7 md:py-5 transition-all duration-150 cursor-pointer min-w-[80px] md:min-w-[120px] shadow-md ${
                 isActive
-                  ? 'border-[#FFB800]/90 bg-[#FFB800]/20'
-                  : 'border-white/10 bg-white/[0.03] hover:border-white/25 hover:bg-white/[0.06]'
+                  ? 'bg-black scale-105 shadow-black/40'
+                  : 'bg-white/30 hover:bg-white/50 active:scale-95'
               }`}
             >
-              <div className={`w-10 h-10 md:w-14 md:h-14 flex items-center justify-center overflow-hidden ${size.iconScale}`}>
+              <div className={`w-12 h-12 md:w-16 md:h-16 flex items-center justify-center overflow-hidden ${size.iconScale}`}>
                 <img
                   src={size.imageUrl}
                   alt={size.label}
                   className="w-full h-full object-contain"
                   loading="lazy"
+                  style={{ filter: isActive ? 'brightness(0) invert(1)' : 'none' }}
                 />
               </div>
 
               <span
-                className={`text-[9px] md:text-xs font-semibold tracking-wide uppercase text-center leading-tight ${
-                  isActive ? 'text-[#FFB800]' : 'text-white/60'
+                className={`text-[10px] md:text-sm font-bold tracking-wide uppercase text-center leading-tight ${
+                  isActive ? 'text-[#FFB800]' : 'text-black'
                 }`}
               >
                 {size.label}
@@ -90,8 +94,8 @@ export default function VehicleSizeSelector({ onSelect, selected }: VehicleSizeS
 
               {subtitle && (
                 <span
-                  className={`text-[7px] md:text-[10px] text-center leading-tight ${
-                    isActive ? 'text-white/60' : 'text-white/25'
+                  className={`text-[7px] md:text-[10px] text-center leading-tight font-medium ${
+                    isActive ? 'text-white/60' : 'text-black/50'
                   }`}
                 >
                   {subtitle}

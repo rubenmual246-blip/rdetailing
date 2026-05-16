@@ -131,30 +131,44 @@ export default function BasicService({ service, vehicleSize }: BasicServiceProps
             })}
           </div>
 
-          {/* Pet hair — mandatory question */}
-          <div className={`mt-3 rounded-xl border px-3 py-3 ${hasPetHair === null ? 'border-[#FFB800]/60 bg-[#FFB800]/5' : 'border-white/15 bg-white/5'}`}>
-            <p className="text-white/80 text-[10px] font-semibold mb-2 leading-snug">
-              ¿Tu vehículo tiene pelos de mascota?
-              <span className="text-[#FFB800] ml-1 text-[9px]">+{petHairPrice}€</span>
-            </p>
-            <div className="flex gap-2">
-              <button
-                onClick={() => setHasPetHair(true)}
-                className={`flex-1 py-2 rounded-lg border text-[10px] font-semibold tracking-wide uppercase transition-all duration-100 cursor-pointer ${
-                  hasPetHair === true ? 'bg-[#FFB800] border-[#FFB800] text-black' : 'border-white/20 text-white/50 active:bg-white/10'
-                }`}
-              >
-                Sí
-              </button>
-              <button
-                onClick={() => setHasPetHair(false)}
-                className={`flex-1 py-2 rounded-lg border text-[10px] font-semibold tracking-wide uppercase transition-all duration-100 cursor-pointer ${
-                  hasPetHair === false ? 'bg-white/20 border-white/40 text-white' : 'border-white/20 text-white/50 active:bg-white/10'
-                }`}
-              >
-                No
-              </button>
+          {/* Pet hair — iOS toggle */}
+          <div className={`mt-3 rounded-xl border px-3 py-3 flex items-center justify-between gap-3 ${hasPetHair === null ? 'border-[#FFB800]/60 bg-[#FFB800]/5' : 'border-white/15 bg-white/5'}`}>
+            <div className="flex flex-col gap-0.5">
+              <p className="text-white/80 text-[10px] font-semibold leading-snug">
+                ¿Tu vehículo tiene pelos de mascota?
+              </p>
+              <p className={`text-[9px] font-medium transition-colors duration-200 ${hasPetHair === true ? 'text-[#FFB800]' : 'text-white/30'}`}>
+                {hasPetHair === null ? 'Indica si o no' : hasPetHair ? `+${petHairPrice}€ añadido` : 'Sin suplemento'}
+              </p>
             </div>
+            <button
+              onClick={() => setHasPetHair(hasPetHair === true ? false : true)}
+              className="flex-shrink-0 cursor-pointer focus:outline-none"
+              style={{
+                width: 44,
+                height: 26,
+                borderRadius: 13,
+                background: hasPetHair === true ? '#FFB800' : hasPetHair === null ? '#3a3a3a' : '#2a2a2a',
+                border: hasPetHair === null ? '1.5px solid rgba(255,184,0,0.5)' : '1.5px solid transparent',
+                position: 'relative',
+                transition: 'background 0.2s ease, border-color 0.2s ease',
+              }}
+            >
+              <span
+                style={{
+                  position: 'absolute',
+                  top: 3,
+                  left: hasPetHair === true ? 21 : 3,
+                  width: 18,
+                  height: 18,
+                  borderRadius: '50%',
+                  background: 'white',
+                  boxShadow: '0 1px 4px rgba(0,0,0,0.4)',
+                  transition: 'left 0.2s cubic-bezier(0.34,1.56,0.64,1)',
+                  display: 'block',
+                }}
+              />
+            </button>
           </div>
 
           <div className="flex items-center justify-between border-t border-[#FFB800]/20 pt-3 mt-3 mb-1">
@@ -231,30 +245,44 @@ export default function BasicService({ service, vehicleSize }: BasicServiceProps
                 </button>
               );
             })}
-            {/* Pet hair — mandatory yes/no */}
-            <div className={`rounded-2xl border px-4 py-4 ${hasPetHair === null ? 'border-[#FFB800]/60 bg-[#FFB800]/5' : 'border-white/15 bg-[#1a1a1a]'}`}>
-              <p className="text-white/80 text-sm font-semibold mb-3">
-                ¿Tu vehículo tiene pelos de mascota?
-                <span className="text-[#FFB800] ml-2 text-xs font-normal">+{petHairPrice}€</span>
-              </p>
-              <div className="flex gap-3">
-                <button
-                  onClick={() => setHasPetHair(true)}
-                  className={`flex-1 py-2.5 rounded-xl border text-sm font-semibold tracking-wide uppercase transition-all duration-100 cursor-pointer ${
-                    hasPetHair === true ? 'bg-[#FFB800] border-[#FFB800] text-black' : 'border-white/20 text-white/50 hover:bg-white/5'
-                  }`}
-                >
-                  Sí
-                </button>
-                <button
-                  onClick={() => setHasPetHair(false)}
-                  className={`flex-1 py-2.5 rounded-xl border text-sm font-semibold tracking-wide uppercase transition-all duration-100 cursor-pointer ${
-                    hasPetHair === false ? 'bg-white/20 border-white/40 text-white' : 'border-white/20 text-white/50 hover:bg-white/5'
-                  }`}
-                >
-                  No
-                </button>
+            {/* Pet hair — iOS toggle */}
+            <div className={`rounded-2xl border px-4 py-4 flex items-center justify-between gap-4 ${hasPetHair === null ? 'border-[#FFB800]/60 bg-[#FFB800]/5' : 'border-white/15 bg-[#1a1a1a]'}`}>
+              <div className="flex flex-col gap-0.5">
+                <p className="text-white/80 text-sm font-semibold">
+                  ¿Tu vehículo tiene pelos de mascota?
+                </p>
+                <p className={`text-xs font-medium transition-colors duration-200 ${hasPetHair === true ? 'text-[#FFB800]' : 'text-white/30'}`}>
+                  {hasPetHair === null ? 'Indica si o no' : hasPetHair ? `+${petHairPrice}€ añadido al total` : 'Sin suplemento'}
+                </p>
               </div>
+              <button
+                onClick={() => setHasPetHair(hasPetHair === true ? false : true)}
+                className="flex-shrink-0 cursor-pointer focus:outline-none"
+                style={{
+                  width: 52,
+                  height: 30,
+                  borderRadius: 15,
+                  background: hasPetHair === true ? '#FFB800' : hasPetHair === null ? '#3a3a3a' : '#2a2a2a',
+                  border: hasPetHair === null ? '1.5px solid rgba(255,184,0,0.5)' : '1.5px solid transparent',
+                  position: 'relative',
+                  transition: 'background 0.2s ease, border-color 0.2s ease',
+                }}
+              >
+                <span
+                  style={{
+                    position: 'absolute',
+                    top: 4,
+                    left: hasPetHair === true ? 25 : 4,
+                    width: 20,
+                    height: 20,
+                    borderRadius: '50%',
+                    background: 'white',
+                    boxShadow: '0 1px 4px rgba(0,0,0,0.4)',
+                    transition: 'left 0.2s cubic-bezier(0.34,1.56,0.64,1)',
+                    display: 'block',
+                  }}
+                />
+              </button>
             </div>
           </div>
 

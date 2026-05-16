@@ -51,7 +51,8 @@ export default function VehicleSizeSelector({ onSelect, selected }: VehicleSizeS
   return (
     <section
       id="vehicle-size-selector"
-      className="bg-[#FFB800] py-8 md:py-12 flex flex-col items-center px-4"
+      className="py-8 md:py-12 flex flex-col items-center px-4"
+      style={{ background: 'linear-gradient(135deg, #FFB800 0%, #FFA500 100%)' }}
     >
       <p className="text-black text-xs md:text-sm font-black tracking-[0.25em] uppercase mb-1 md:mb-2">
         ¿Qué vehículo traes?

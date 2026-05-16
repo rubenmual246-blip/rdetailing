@@ -132,7 +132,7 @@ export default function BasicService({ service, vehicleSize }: BasicServiceProps
           </div>
 
           {/* Pet hair — iOS toggle */}
-          <div className={`mt-3 rounded-xl border px-3 py-3 flex items-center justify-between gap-3 ${hasPetHair === null ? 'border-[#FFB800]/60 bg-[#FFB800]/5' : 'border-white/15 bg-white/5'}`}>
+          <div className={`mt-3 rounded-xl border px-3 py-3 flex items-center justify-between gap-3 transition-colors duration-200 ${hasPetHair === true ? 'border-[#FFB800] bg-[#FFB800]/10' : hasPetHair === null ? 'border-[#FFB800]/60 bg-[#FFB800]/5' : 'border-white/15 bg-white/5'}`}>
             <div className="flex flex-col gap-0.5">
               <p className="text-white/80 text-[10px] font-semibold leading-snug">
                 ¿Tu vehículo tiene pelos de mascota?
@@ -246,7 +246,7 @@ export default function BasicService({ service, vehicleSize }: BasicServiceProps
               );
             })}
             {/* Pet hair — iOS toggle */}
-            <div className={`rounded-2xl border px-4 py-4 flex items-center justify-between gap-4 ${hasPetHair === null ? 'border-[#FFB800]/60 bg-[#FFB800]/5' : 'border-white/15 bg-[#1a1a1a]'}`}>
+            <div className={`rounded-2xl border px-4 py-4 flex items-center justify-between gap-4 transition-colors duration-200 ${hasPetHair === true ? 'border-[#FFB800] bg-[#FFB800]/10' : hasPetHair === null ? 'border-[#FFB800]/60 bg-[#FFB800]/5' : 'border-white/15 bg-[#1a1a1a]'}`}>
               <div className="flex flex-col gap-0.5">
                 <p className="text-white/80 text-sm font-semibold">
                   ¿Tu vehículo tiene pelos de mascota?

@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import {
   basicService,
   detailedServices,
@@ -15,6 +15,18 @@ interface ServicesProps {
 
 export default function Services({ selectedVehicleSize }: ServicesProps) {
   const [absoluteExpanded, setAbsoluteExpanded] = useState(false);
+  const absoluteCardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!absoluteExpanded) return;
+    const handler = (e: MouseEvent) => {
+      if (absoluteCardRef.current && !absoluteCardRef.current.contains(e.target as Node)) {
+        setAbsoluteExpanded(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, [absoluteExpanded]);
 
   const size = selectedVehicleSize || 'pequeno';
   const vehicleLabel = sizeLabelMap[size] ?? size;
@@ -55,7 +67,7 @@ export default function Services({ selectedVehicleSize }: ServicesProps) {
         </div>
 
         {/* Absolute Detailing */}
-        <div className="w-full rounded-2xl overflow-hidden border border-[#FFB800]/40" style={{ background: '#111' }}>
+        <div ref={absoluteCardRef} className="w-full rounded-2xl overflow-hidden border border-[#FFB800]/40" style={{ background: '#111' }}>
           <div className="relative overflow-hidden" style={{ height: 'clamp(140px, 28vw, 240px)' }}>
             <img
               src={absoluteImage}

@@ -51,17 +51,24 @@ export default function VehicleSizeSelector({ onSelect, selected }: VehicleSizeS
   return (
     <section
       id="vehicle-size-selector"
-      className="py-8 md:py-12 flex flex-col items-center px-4"
+      className="relative py-8 md:py-12 flex flex-col items-center px-4"
       style={{ background: 'linear-gradient(135deg, #FFB800 0%, #FFA500 100%)' }}
     >
-      <p className="text-black text-xs md:text-sm font-black tracking-[0.25em] uppercase mb-1 md:mb-2">
+      {/* Fade top */}
+      <div className="absolute top-0 left-0 right-0 h-10 md:h-14 pointer-events-none z-10"
+        style={{ background: 'linear-gradient(to bottom, #000 0%, transparent 100%)' }} />
+      {/* Fade bottom */}
+      <div className="absolute bottom-0 left-0 right-0 h-10 md:h-14 pointer-events-none z-10"
+        style={{ background: 'linear-gradient(to top, #000 0%, transparent 100%)' }} />
+
+      <p className="relative z-20 text-black text-xs md:text-sm font-black tracking-[0.25em] uppercase mb-1 md:mb-2">
         ¿Qué vehículo traes?
       </p>
-      <p className="text-black/50 text-[10px] md:text-xs font-medium tracking-wider uppercase mb-6 md:mb-8">
+      <p className="relative z-20 text-black/50 text-[10px] md:text-xs font-medium tracking-wider uppercase mb-6 md:mb-8">
         Elige el tamaño para ver el precio
       </p>
 
-      <div className="flex items-stretch gap-3 md:gap-5">
+      <div className="relative z-20 flex items-stretch gap-3 md:gap-5">
         {vehicleSizes.map((size) => {
           const isActive = selected === size.id;
           const subtitle = sizeSubtitleMap[size.id];

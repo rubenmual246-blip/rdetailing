@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import { basePriceBySize, extraPriceBySize, essentialImagesBySize } from '../../../mocks/services';
 
 const sizeLabelMap: Record<string, string> = {
@@ -31,6 +31,18 @@ export default function BasicService({ service, vehicleSize }: BasicServiceProps
   const [selectedExtras, setSelectedExtras] = useState<Record<number, boolean>>({});
   const [hasPetHair, setHasPetHair] = useState<boolean | null>(null);
   const [isExpanded, setIsExpanded] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!isExpanded) return;
+    const handler = (e: MouseEvent) => {
+      if (cardRef.current && !cardRef.current.contains(e.target as Node)) {
+        setIsExpanded(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, [isExpanded]);
 
   const size = vehicleSize || 'pequeno';
   const basePrice = basePriceBySize[size] ?? service.price;
@@ -64,7 +76,7 @@ export default function BasicService({ service, vehicleSize }: BasicServiceProps
   }, []);
 
   return (
-    <div className="w-full">
+    <div className="w-full" ref={cardRef}>
       {/* MOBILE */}
       <div className="block md:hidden">
         <div className="rounded-2xl overflow-hidden border border-[#FFB800]/40 bg-[#111]">

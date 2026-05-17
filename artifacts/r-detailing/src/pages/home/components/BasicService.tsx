@@ -58,7 +58,6 @@ export default function BasicService({ service, vehicleSize }: BasicServiceProps
       lines.push(`+${shortName}`);
     });
     if (hasPetHair) lines.push('+pelo de mascota');
-    lines.push(`*Total estimado: ${totalPrice}€*`);
     lines.push('¡Gracias!');
     return `https://wa.me/34676758480?text=${encodeURIComponent(lines.join('\n'))}`;
   }, [size, service.name, selectedExtrasList, hasPetHair, totalPrice]);

@@ -52,13 +52,13 @@ export default function BasicService({ service, vehicleSize }: BasicServiceProps
 
   const whatsappUrl = useMemo(() => {
     const vehicleLabel = sizeLabelMap[size] ?? size;
-    const lines = ['Hola, querría reservar:', `${vehicleLabel}`, `${service.name}`];
+    const lines = ['Hola, querría reservar:', `*Tamaño: ${vehicleLabel}*`, `*Servicio: ${service.name}*`];
     selectedExtrasList.forEach((extra) => {
       const shortName = extra.name.toLowerCase().includes('tapicer') ? 'tapicería' : extra.name.toLowerCase().includes('alfombr') ? 'alfombrillas' : 'pelo de mascota';
       lines.push(`+${shortName}`);
     });
     if (hasPetHair) lines.push('+pelo de mascota');
-    lines.push(`Total estimado: ${totalPrice}€`);
+    lines.push(`*Total estimado: ${totalPrice}€*`);
     lines.push('¡Gracias!');
     return `https://wa.me/34676758480?text=${encodeURIComponent(lines.join('\n'))}`;
   }, [size, service.name, selectedExtrasList, hasPetHair, totalPrice]);

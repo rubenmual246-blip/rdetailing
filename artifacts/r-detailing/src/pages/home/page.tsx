@@ -4,7 +4,6 @@ import WhatIsDetailing from './components/WhatIsDetailing';
 import VehicleSizeSelector from './components/VehicleSizeSelector';
 import Services from './components/Services';
 import Footer from './components/Footer';
-import Navbar from './components/Navbar';
 
 function SectionDivider() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -51,25 +50,17 @@ function SectionDivider() {
 }
 
 export default function Home() {
-  const [scrolled, setScrolled] = useState(false);
   const [selectedVehicleSize, setSelectedVehicleSize] = useState<string | null>('pequeno');
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   return (
     <div className="min-h-screen bg-black w-full overflow-x-hidden pt-8 md:pt-0">
-      <Navbar scrolled={scrolled} />
       <Hero />
       <div className="hidden md:block">
         <SectionDivider />
       </div>
       <WhatIsDetailing />
       <VehicleSizeSelector onSelect={setSelectedVehicleSize} selected={selectedVehicleSize} />
-      <section className="bg-black h-10 md:h-14 w-full" aria-hidden="true" />
+      <section className="bg-black h-24 md:h-36 w-full" aria-hidden="true" />
       <Services selectedVehicleSize={selectedVehicleSize} />
       <Footer />
     </div>

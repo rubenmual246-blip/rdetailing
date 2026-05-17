@@ -25,17 +25,13 @@ export default function Services({ selectedVehicleSize }: ServicesProps) {
   const absoluteImage = absoluteImagesBySize[size] ?? absoluteService.image;
 
   const absoluteWhatsappUrl = useMemo(() => {
-    const lines = [
-      `*${vehicleLabel}*`,
-      `*${absoluteService.name}*`,
-      `Total: ${absolutePrice}€`,
-    ];
+    const lines = [`*${vehicleLabel}*`, `*${absoluteService.name}*`, `Total: ${absolutePrice}€`];
     return `https://wa.me/34676758480?text=${encodeURIComponent(lines.join('\n'))}`;
   }, [vehicleLabel, absoluteService.name, absolutePrice]);
 
   return (
     <section id="services" className="bg-black px-4 sm:px-6 pb-16 md:pb-24">
-      <div className="max-w-7xl mx-auto space-y-8 md:space-y-12">
+      <div className="max-w-7xl mx-auto space-y-16 md:space-y-24">
         <div className="text-center pt-2">
           <p className="text-[#FFB800] text-xs md:text-sm font-light tracking-[0.25em] uppercase">
             Para vehículo: <span className="font-bold">{vehicleLabel}</span>
@@ -44,11 +40,7 @@ export default function Services({ selectedVehicleSize }: ServicesProps) {
 
         <BasicService service={basicService} vehicleSize={selectedVehicleSize} />
 
-        <div className="flex items-center gap-4">
-          <div className="flex-1 h-px bg-[#FFB800]/20"></div>
-          <span className="text-[#FFB800]/40 text-xs tracking-widest uppercase">o</span>
-          <div className="flex-1 h-px bg-[#FFB800]/20"></div>
-        </div>
+        <div className="h-10 md:h-16" aria-hidden="true" />
 
         <div className="w-full rounded-2xl overflow-hidden border border-[#FFB800]/40" style={{ background: '#111' }}>
           <div

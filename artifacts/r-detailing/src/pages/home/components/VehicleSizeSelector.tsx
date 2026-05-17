@@ -37,15 +37,6 @@ export default function VehicleSizeSelector({ onSelect, selected }: VehicleSizeS
   const handleSelect = (sizeId: string) => {
     if (selected === sizeId) return;
     onSelect(sizeId);
-
-    requestAnimationFrame(() => {
-      const el = document.getElementById('services');
-      if (el) {
-        const offset = window.innerWidth < 768 ? window.innerHeight * 0.46 : 80;
-        const top = el.getBoundingClientRect().top + window.scrollY - offset;
-        window.scrollTo({ top, behavior: 'smooth' });
-      }
-    });
   };
 
   return (

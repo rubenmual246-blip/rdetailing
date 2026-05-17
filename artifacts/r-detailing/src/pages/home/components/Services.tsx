@@ -15,10 +15,10 @@ interface ServicesProps {
 
 function SectionSeparator() {
   return (
-    <div className="flex items-center justify-center gap-3 py-2 md:py-3 px-0" aria-hidden="true">
-      <div className="h-px flex-1 bg-[#FFB800]/35" />
-      <div className="w-2 h-2 rounded-full bg-[#FFB800]/75" />
-      <div className="h-px flex-1 bg-[#FFB800]/35" />
+    <div className="flex items-center justify-center py-2 md:py-3 px-0" aria-hidden="true">
+      <div className="h-px w-[38%] md:w-[42%] bg-gradient-to-r from-transparent via-[#FFB800]/35 to-[#FFB800]/35" />
+      <div className="w-1.5 h-1.5 rounded-full bg-[#FFB800]/70 mx-2" />
+      <div className="h-px w-[38%] md:w-[42%] bg-gradient-to-l from-transparent via-[#FFB800]/35 to-[#FFB800]/35" />
     </div>
   );
 }

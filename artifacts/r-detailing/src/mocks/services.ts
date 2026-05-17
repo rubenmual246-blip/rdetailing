@@ -29,7 +29,7 @@ export const detailedServices = [
     image: 'https://readdy.ai/api/search-image?query=premium%20car%20interior%20leather%20seats%20close%20up%20detailing%20conditioning%20treatment%20beige%20cream%20leather%20no%20people%20nobody%20luxury%20vehicle%20cabin%20steering%20wheel%20detail%20studio%20lighting&width=800&height=600&seq=absolute-noperson-v3&orientation=landscape',
     included: [
       'Prelavado y lavado exterior con paño de microfibra y técnica de dos cubos',
-      'Limpieza de llantas y restos férricos',
+      'Limpieza profunda de llantas y eliminación de restos férricos',
       'Tratamiento regenerador de plásticos interiores y exteriores',
       'Recuperador de neumáticos',
       'Limpieza de cristales',
@@ -41,7 +41,7 @@ export const detailedServices = [
       'Limpieza de tapicería por inyección y extracción profesional',
       'Eliminación de manchas persistentes',
       'Tratamiento para textiles, cueros o alcántara profesional',
-      'Sanitización con vapor, desinfección y limpieza interior a vapor',
+      'Limpieza y desinfección interior a vapor',
     ],
   },
 ];

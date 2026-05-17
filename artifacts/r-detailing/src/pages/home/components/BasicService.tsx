@@ -29,7 +29,7 @@ interface BasicServiceProps {
 
 export default function BasicService({ service, vehicleSize }: BasicServiceProps) {
   const [selectedExtras, setSelectedExtras] = useState<Record<number, boolean>>({});
-  const [hasPetHair, setHasPetHair] = useState<boolean | null>(null);
+  const [hasPetHair, setHasPetHair] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
 
   const size = vehicleSize || 'pequeno';
@@ -63,33 +63,32 @@ export default function BasicService({ service, vehicleSize }: BasicServiceProps
     setSelectedExtras((prev) => ({ ...prev, [index]: !prev[index] }));
   }, []);
 
+  const toggleExpanded = () => setIsExpanded((prev) => !prev);
+
   return (
     <div className="w-full">
-      {/* MOBILE */}
       <div className="block md:hidden">
-        <div className="rounded-2xl overflow-hidden border border-[#FFB800]/40 bg-[#111]">
+        <div className="rounded-2xl overflow-hidden border border-[#FFB800]/40 bg-[#111]" onClick={toggleExpanded}>
           <div className="relative h-[180px] overflow-hidden">
             <img src={currentImage} alt={service.name} className="w-full h-full object-cover object-top" />
             <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/70 pointer-events-none" />
           </div>
           <div className="px-4 pt-2.5 pb-3">
-            {service.slogan && (
-              <p className="text-[#FFB800] text-[9px] font-light tracking-[0.2em] uppercase mb-0.5">{service.slogan}</p>
-            )}
+            {service.slogan && <p className="text-[#FFB800] text-[9px] font-light tracking-[0.2em] uppercase mb-0.5">{service.slogan}</p>}
             <h3 className="text-white text-sm font-light tracking-[0.1em] uppercase mb-1 leading-tight">{service.name}</h3>
             <p className="text-[#FFB800] text-xl font-bold mb-0.5">{basePrice}€</p>
             {service.duration && <p className="text-white/40 text-[9px] font-light mb-2">{service.duration}</p>}
             <button
-              onClick={() => setIsExpanded(!isExpanded)}
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleExpanded();
+              }}
               className="self-start border border-[#FFB800]/60 text-[#FFB800] py-1 px-3 rounded-full text-[9px] tracking-[0.12em] uppercase cursor-pointer"
             >
               {isExpanded ? 'MENOS INFO' : 'MÁS INFO'}
             </button>
           </div>
-          <div
-            className="overflow-hidden transition-all duration-300 ease-in-out"
-            style={{ maxHeight: isExpanded ? '400px' : '0px' }}
-          >
+          <div className="overflow-hidden transition-all duration-300 ease-in-out" style={{ maxHeight: isExpanded ? '400px' : '0px' }}>
             <div className="px-4 pb-3 pt-2 border-t border-[#FFB800]/10">
               <p className="text-[#FFB800] text-[9px] font-light tracking-[0.15em] uppercase mb-2">Incluye:</p>
               <ul className="space-y-1">
@@ -115,9 +114,7 @@ export default function BasicService({ service, vehicleSize }: BasicServiceProps
                 <button
                   key={i}
                   onClick={() => toggleExtra(i)}
-                  className={`w-full flex items-center justify-between gap-2 py-3.5 px-3 rounded-xl border transition-all duration-100 text-left cursor-pointer ${
-                    isSelected ? 'border-[#FFB800] bg-[#FFB800]/10' : 'border-white/15 bg-white/5'
-                  }`}
+                  className={`w-full flex items-center justify-between gap-2 py-3.5 px-3 rounded-xl border transition-all duration-100 text-left cursor-pointer ${isSelected ? 'border-[#FFB800] bg-[#FFB800]/10' : 'border-white/15 bg-white/5'}`}
                 >
                   <div className="flex items-center gap-2.5">
                     <span className={`flex-shrink-0 w-5 h-5 rounded-full border flex items-center justify-center ${isSelected ? 'border-[#FFB800] bg-[#FFB800]' : 'border-white/40'}`}>
@@ -131,67 +128,44 @@ export default function BasicService({ service, vehicleSize }: BasicServiceProps
             })}
           </div>
 
-          {/* Pet hair — mandatory question */}
-          <div className={`mt-3 rounded-xl border px-3 py-3 ${hasPetHair === null ? 'border-[#FFB800]/60 bg-[#FFB800]/5' : 'border-white/15 bg-white/5'}`}>
-            <p className="text-white/80 text-[10px] font-semibold mb-2 leading-snug">
-              ¿Tu vehículo tiene pelos de mascota?
-              <span className="text-[#FFB800] ml-1 text-[9px]">+{petHairPrice}€</span>
-            </p>
-            <div className="flex gap-2">
+          <div className={`mt-3 rounded-xl border px-3 py-3 ${hasPetHair ? 'border-[#FFB800] bg-[#FFB800]/10' : 'border-white/15 bg-white/5'}`}>
+            <div className="flex items-center justify-between gap-3">
+              <p className="text-white/80 text-[10px] font-semibold leading-snug">¿Tu vehículo tiene pelos de mascota?</p>
               <button
-                onClick={() => setHasPetHair(true)}
-                className={`flex-1 py-2 rounded-lg border text-[10px] font-semibold tracking-wide uppercase transition-all duration-100 cursor-pointer ${
-                  hasPetHair === true ? 'bg-[#FFB800] border-[#FFB800] text-black' : 'border-white/20 text-white/50 active:bg-white/10'
-                }`}
+                onClick={() => setHasPetHair((prev) => !prev)}
+                className={`relative w-12 h-7 rounded-full border transition-all duration-200 ${hasPetHair ? 'bg-[#FFB800] border-[#FFB800]' : 'bg-white/10 border-white/20'}`}
+                aria-pressed={hasPetHair}
+                aria-label="Activar eliminación de pelos de mascota"
               >
-                Sí
-              </button>
-              <button
-                onClick={() => setHasPetHair(false)}
-                className={`flex-1 py-2 rounded-lg border text-[10px] font-semibold tracking-wide uppercase transition-all duration-100 cursor-pointer ${
-                  hasPetHair === false ? 'bg-white/20 border-white/40 text-white' : 'border-white/20 text-white/50 active:bg-white/10'
-                }`}
-              >
-                No
+                <span className={`absolute top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white transition-all duration-200 ${hasPetHair ? 'left-6' : 'left-1'}`} />
               </button>
             </div>
+            <p className="text-[#FFB800] text-[9px] mt-2">+{petHairPrice}€</p>
           </div>
 
           <div className="flex items-center justify-between border-t border-[#FFB800]/20 pt-3 mt-3 mb-1">
             <span className="text-white/50 text-[9px] tracking-wider uppercase">Total estimado</span>
             <span className="text-[#FFB800] text-xl font-bold">{totalPrice}€</span>
           </div>
-          <p className="text-white/30 text-[8px] italic text-center mb-3 px-2 leading-relaxed">
-            Precio orientativo. El coste definitivo se confirma tras valoración presencial.
-          </p>
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full bg-[#FFB800] text-black py-2.5 rounded-full font-semibold text-[10px] tracking-[0.12em] uppercase text-center flex items-center justify-center gap-1.5 cursor-pointer"
-          >
+          <p className="text-white/30 text-[8px] italic text-center mb-3 px-2 leading-relaxed">Precio orientativo. El coste definitivo se confirma tras valoración presencial.</p>
+          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="w-full bg-[#FFB800] text-black py-2.5 rounded-full font-semibold text-[10px] tracking-[0.12em] uppercase text-center flex items-center justify-center gap-1.5 cursor-pointer">
             <i className="ri-whatsapp-line text-xs" />
             RESERVAR LAVADO BÁSICO
           </a>
         </div>
       </div>
 
-      {/* DESKTOP */}
       <div className="hidden md:flex gap-6 items-stretch">
-        <div className="w-[340px] flex-shrink-0 rounded-2xl overflow-hidden border border-[#FFB800]/40 bg-[#111] flex flex-col">
+        <div className="w-[340px] flex-shrink-0 rounded-2xl overflow-hidden border border-[#FFB800]/40 bg-[#111] flex flex-col" onClick={toggleExpanded}>
           <div className="relative flex-1 min-h-[240px] overflow-hidden">
             <img src={currentImage} alt={service.name} className="w-full h-full object-cover object-top" />
             <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/70 pointer-events-none" />
           </div>
           <div className="flex-shrink-0 px-5 py-4">
-            {service.slogan && (
-              <p className="text-[#FFB800] text-[10px] font-light tracking-[0.2em] uppercase mb-1">{service.slogan}</p>
-            )}
+            {service.slogan && <p className="text-[#FFB800] text-[10px] font-light tracking-[0.2em] uppercase mb-1">{service.slogan}</p>}
             <h3 className="text-white text-lg font-light tracking-[0.12em] uppercase mb-1.5 leading-tight">{service.name}</h3>
             <p className="text-[#FFB800] text-3xl font-bold mb-0.5">{basePrice}€</p>
             {service.duration && <p className="text-white/40 text-[10px] font-light">{service.duration}</p>}
-
-            {/* Incluye section on desktop */}
             <div className="mt-3 pt-3 border-t border-[#FFB800]/10">
               <p className="text-[#FFB800] text-[9px] font-light tracking-[0.15em] uppercase mb-2">Incluye:</p>
               <ul className="space-y-1">
@@ -217,9 +191,7 @@ export default function BasicService({ service, vehicleSize }: BasicServiceProps
                 <button
                   key={i}
                   onClick={() => toggleExtra(i)}
-                  className={`w-full flex items-center justify-between gap-3 py-4 px-4 rounded-2xl border transition-all duration-100 text-left cursor-pointer ${
-                    isSelected ? 'border-[#FFB800] bg-[#FFB800]/10' : 'border-white/15 bg-[#1a1a1a] hover:bg-[#222]'
-                  }`}
+                  className={`w-full flex items-center justify-between gap-3 py-4 px-4 rounded-2xl border transition-all duration-100 text-left cursor-pointer ${isSelected ? 'border-[#FFB800] bg-[#FFB800]/10' : 'border-white/15 bg-[#1a1a1a] hover:bg-[#222]'}`}
                 >
                   <div className="flex items-center gap-3">
                     <span className={`flex-shrink-0 w-5 h-5 rounded-full border flex items-center justify-center ${isSelected ? 'border-[#FFB800] bg-[#FFB800]' : 'border-white/40'}`}>
@@ -231,30 +203,19 @@ export default function BasicService({ service, vehicleSize }: BasicServiceProps
                 </button>
               );
             })}
-            {/* Pet hair — mandatory yes/no */}
-            <div className={`rounded-2xl border px-4 py-4 ${hasPetHair === null ? 'border-[#FFB800]/60 bg-[#FFB800]/5' : 'border-white/15 bg-[#1a1a1a]'}`}>
-              <p className="text-white/80 text-sm font-semibold mb-3">
-                ¿Tu vehículo tiene pelos de mascota?
-                <span className="text-[#FFB800] ml-2 text-xs font-normal">+{petHairPrice}€</span>
-              </p>
-              <div className="flex gap-3">
+            <div className={`rounded-2xl border px-4 py-4 ${hasPetHair ? 'border-[#FFB800] bg-[#FFB800]/10' : 'border-white/15 bg-[#1a1a1a]'}`}>
+              <div className="flex items-center justify-between gap-3">
+                <p className="text-white/80 text-sm font-semibold">¿Tu vehículo tiene pelos de mascota?</p>
                 <button
-                  onClick={() => setHasPetHair(true)}
-                  className={`flex-1 py-2.5 rounded-xl border text-sm font-semibold tracking-wide uppercase transition-all duration-100 cursor-pointer ${
-                    hasPetHair === true ? 'bg-[#FFB800] border-[#FFB800] text-black' : 'border-white/20 text-white/50 hover:bg-white/5'
-                  }`}
+                  onClick={() => setHasPetHair((prev) => !prev)}
+                  className={`relative w-14 h-8 rounded-full border transition-all duration-200 ${hasPetHair ? 'bg-[#FFB800] border-[#FFB800]' : 'bg-white/10 border-white/20'}`}
+                  aria-pressed={hasPetHair}
+                  aria-label="Activar eliminación de pelos de mascota"
                 >
-                  Sí
-                </button>
-                <button
-                  onClick={() => setHasPetHair(false)}
-                  className={`flex-1 py-2.5 rounded-xl border text-sm font-semibold tracking-wide uppercase transition-all duration-100 cursor-pointer ${
-                    hasPetHair === false ? 'bg-white/20 border-white/40 text-white' : 'border-white/20 text-white/50 hover:bg-white/5'
-                  }`}
-                >
-                  No
+                  <span className={`absolute top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white transition-all duration-200 ${hasPetHair ? 'left-7' : 'left-1'}`} />
                 </button>
               </div>
+              <p className="text-[#FFB800] text-xs mt-2">+{petHairPrice}€</p>
             </div>
           </div>
 
@@ -262,15 +223,8 @@ export default function BasicService({ service, vehicleSize }: BasicServiceProps
             <span className="text-white/50 text-sm tracking-wider uppercase">Total estimado</span>
             <span className="text-[#FFB800] text-4xl font-bold">{totalPrice}€</span>
           </div>
-          <p className="text-white/30 text-xs italic text-center mb-4 px-2 leading-relaxed">
-            Precio orientativo. El coste definitivo se confirma tras valoración presencial en función del estado del vehículo.
-          </p>
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full bg-[#FFB800] text-black py-3 rounded-full font-bold text-sm tracking-[0.12em] uppercase text-center flex items-center justify-center gap-2 cursor-pointer hover:bg-[#FFA500] transition-colors"
-          >
+          <p className="text-white/30 text-xs italic text-center mb-4 px-2 leading-relaxed">Precio orientativo. El coste definitivo se confirma tras valoración presencial en función del estado del vehículo.</p>
+          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="w-full bg-[#FFB800] text-black py-3 rounded-full font-bold text-sm tracking-[0.12em] uppercase text-center flex items-center justify-center gap-2 cursor-pointer hover:bg-[#FFA500] transition-colors">
             <i className="ri-whatsapp-line text-base" />
             RESERVAR LAVADO BÁSICO
           </a>

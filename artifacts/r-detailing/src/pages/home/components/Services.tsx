@@ -36,36 +36,31 @@ export default function Services({ selectedVehicleSize }: ServicesProps) {
   return (
     <section id="services" className="bg-black px-4 sm:px-6 pb-16 md:pb-24">
       <div className="max-w-7xl mx-auto space-y-8 md:space-y-12">
-
-        {/* Section title */}
         <div className="text-center pt-2">
           <p className="text-[#FFB800] text-xs md:text-sm font-light tracking-[0.25em] uppercase">
             Para vehículo: <span className="font-bold">{vehicleLabel}</span>
           </p>
         </div>
 
-        {/* Basic Service */}
         <BasicService service={basicService} vehicleSize={selectedVehicleSize} />
 
-        {/* Divider */}
         <div className="flex items-center gap-4">
           <div className="flex-1 h-px bg-[#FFB800]/20"></div>
           <span className="text-[#FFB800]/40 text-xs tracking-widest uppercase">o</span>
           <div className="flex-1 h-px bg-[#FFB800]/20"></div>
         </div>
 
-        {/* Absolute Detailing */}
         <div className="w-full rounded-2xl overflow-hidden border border-[#FFB800]/40" style={{ background: '#111' }}>
-          <div className="relative overflow-hidden" style={{ height: 'clamp(140px, 28vw, 240px)' }}>
-            <img
-              src={absoluteImage}
-              alt={absoluteService.name}
-              className="w-full h-full object-cover object-top"
-            />
+          <div
+            className="relative overflow-hidden cursor-pointer"
+            style={{ height: 'clamp(140px, 28vw, 240px)' }}
+            onClick={() => setAbsoluteExpanded((prev) => !prev)}
+          >
+            <img src={absoluteImage} alt={absoluteService.name} className="w-full h-full object-cover object-top" />
             <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/70 pointer-events-none"></div>
           </div>
 
-          <div className="bg-[#111] px-3 md:px-5 pt-3 md:pt-4 pb-3 md:pb-4">
+          <div className="bg-[#111] px-3 md:px-5 pt-3 md:pt-4 pb-3 md:pb-4 cursor-pointer" onClick={() => setAbsoluteExpanded((prev) => !prev)}>
             {absoluteService.slogan && (
               <p className="text-[#FFB800] text-[8px] md:text-xs font-light tracking-[0.15em] uppercase mb-0.5">
                 {absoluteService.slogan}
@@ -83,9 +78,12 @@ export default function Services({ selectedVehicleSize }: ServicesProps) {
               </p>
             )}
 
-            <div className="flex gap-2">
+            <div className="flex gap-2" onClick={(e) => e.stopPropagation()}>
               <button
-                onClick={() => setAbsoluteExpanded(!absoluteExpanded)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setAbsoluteExpanded((prev) => !prev);
+                }}
                 className="flex-1 border border-[#FFB800]/60 text-[#FFB800] py-1.5 md:py-2 rounded-full font-light text-[8px] md:text-[11px] tracking-[0.1em] uppercase hover:bg-[#FFB800]/10 transition-all duration-300 whitespace-nowrap cursor-pointer"
               >
                 {absoluteExpanded ? 'MENOS INFO' : 'MÁS INFO'}
@@ -102,7 +100,6 @@ export default function Services({ selectedVehicleSize }: ServicesProps) {
             </div>
           </div>
 
-          {/* Expandable details */}
           <div
             className="overflow-hidden transition-all duration-500 ease-in-out"
             style={{ maxHeight: absoluteExpanded ? '1200px' : '0px' }}
@@ -133,7 +130,6 @@ export default function Services({ selectedVehicleSize }: ServicesProps) {
             </div>
           </div>
         </div>
-
       </div>
     </section>
   );

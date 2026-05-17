@@ -3,7 +3,6 @@ import Hero from './components/Hero';
 import WhatIsDetailing from './components/WhatIsDetailing';
 import VehicleSizeSelector from './components/VehicleSizeSelector';
 import Services from './components/Services';
-import SocialMedia from './components/SocialMedia';
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 
@@ -72,7 +71,6 @@ export default function Home() {
       <VehicleSizeSelector onSelect={setSelectedVehicleSize} selected={selectedVehicleSize} />
       <section className="bg-black h-10 md:h-14 w-full" aria-hidden="true" />
       <Services selectedVehicleSize={selectedVehicleSize} />
-      <SocialMedia />
       <Footer />
     </div>
   );

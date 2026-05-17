@@ -52,7 +52,7 @@ export default function BasicService({ service, vehicleSize }: BasicServiceProps
 
   const whatsappUrl = useMemo(() => {
     const vehicleLabel = sizeLabelMap[size] ?? size;
-    const lines = [`*${vehicleLabel}*`, `*${service.name}*`];
+    const lines = ['Hola, buenas', `*${vehicleLabel}*`, `*${service.name}*`];
     selectedExtrasList.forEach((extra) => lines.push(`+${extra.name}`));
     if (hasPetHair) lines.push('+Eliminación pelos mascota');
     lines.push(`Total: ${totalPrice}€`);

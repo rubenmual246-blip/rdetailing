@@ -143,7 +143,7 @@ export default function BasicService({ service, vehicleSize }: BasicServiceProps
                 <span className={`absolute top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white transition-all duration-200 ${hasPetHair ? 'left-6' : 'left-1'}`} />
               </button>
             </div>
-            <p className="text-white/40 text-[9px] mt-2">Si tu coche tiene pelos de mascota, es obligatorio marcar esta casilla.</p>
+            <p className="text-white/40 text-[9px] mt-2 leading-snug max-w-[15rem]">Si tu coche tiene pelos de mascota,<br />es obligatorio marcar esta casilla.</p>
           </div>
 
           <div className="flex items-center justify-between border-t border-[#FFB800]/20 pt-3 mt-3 mb-1">
@@ -218,7 +218,8 @@ export default function BasicService({ service, vehicleSize }: BasicServiceProps
                   <span className={`absolute top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white transition-all duration-200 ${hasPetHair ? 'left-7' : 'left-1'}`} />
                 </button>
               </div>
-              <p className="text-white/40 text-xs mt-2">Si tu coche tiene pelos de mascota, es obligatorio marcar esta casilla.</p>
+              <p className="text-white/40 text-xs mt-2 leading-snug max-w-xs">Si tu coche tiene pelos de mascota,
+es obligatorio marcar esta casilla.</p>
             </div>
           </div>
 

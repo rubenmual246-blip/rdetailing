@@ -15,7 +15,7 @@ interface ServicesProps {
 
 function SectionSeparator() {
   return (
-      <div className="flex items-center justify-center gap-3 py-2 md:py-3 px-0" aria-hidden="true">
+    <div className="flex items-center justify-center gap-3 py-2 md:py-3 px-0" aria-hidden="true">
       <div className="h-px flex-1 bg-[#FFB800]/35" />
       <div className="w-2 h-2 rounded-full bg-[#FFB800]/75" />
       <div className="h-px flex-1 bg-[#FFB800]/35" />

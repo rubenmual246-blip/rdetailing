@@ -13,6 +13,16 @@ interface ServicesProps {
   selectedVehicleSize: string | null;
 }
 
+function SectionSeparator() {
+  return (
+    <div className="flex items-center justify-center gap-3 py-2 md:py-3" aria-hidden="true">
+      <div className="h-px w-14 md:w-20 bg-[#FFB800]/35" />
+      <div className="w-2 h-2 rounded-full bg-[#FFB800]/75" />
+      <div className="h-px w-14 md:w-20 bg-[#FFB800]/35" />
+    </div>
+  );
+}
+
 export default function Services({ selectedVehicleSize }: ServicesProps) {
   const [absoluteExpanded, setAbsoluteExpanded] = useState(false);
 
@@ -119,7 +129,8 @@ export default function Services({ selectedVehicleSize }: ServicesProps) {
           </div>
         </div>
 
-        <div className="h-14 md:h-24" aria-hidden="true" />
+        <SectionSeparator />
+        <div className="h-8 md:h-12" aria-hidden="true" />
 
         <BasicService service={basicService} vehicleSize={selectedVehicleSize} />
       </div>

@@ -41,7 +41,7 @@ export default function VehicleSizeSelector({ onSelect, selected }: VehicleSizeS
     requestAnimationFrame(() => {
       const el = document.getElementById('services');
       if (el) {
-        const offset = window.innerWidth < 768 ? window.innerHeight * 0.22 : 80;
+        const offset = window.innerWidth < 768 ? window.innerHeight * 0.46 : 80;
         const top = el.getBoundingClientRect().top + window.scrollY - offset;
         window.scrollTo({ top, behavior: 'smooth' });
       }

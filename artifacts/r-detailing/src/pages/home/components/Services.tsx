@@ -38,10 +38,6 @@ export default function Services({ selectedVehicleSize }: ServicesProps) {
           </p>
         </div>
 
-        <BasicService service={basicService} vehicleSize={selectedVehicleSize} />
-
-        <div className="h-10 md:h-16" aria-hidden="true" />
-
         <div className="w-full rounded-2xl overflow-hidden border border-[#FFB800]/40" style={{ background: '#111' }}>
           <div
             className="relative overflow-hidden cursor-pointer"
@@ -122,6 +118,10 @@ export default function Services({ selectedVehicleSize }: ServicesProps) {
             </div>
           </div>
         </div>
+
+        <div className="h-14 md:h-24" aria-hidden="true" />
+
+        <BasicService service={basicService} vehicleSize={selectedVehicleSize} />
       </div>
     </section>
   );

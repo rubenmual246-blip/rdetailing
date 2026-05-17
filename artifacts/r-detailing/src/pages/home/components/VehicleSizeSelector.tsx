@@ -51,9 +51,9 @@ export default function VehicleSizeSelector({ onSelect, selected }: VehicleSizeS
   return (
     <section
       id="vehicle-size-selector"
-      className="bg-[#141210] pt-3 md:pt-5 pb-5 md:pb-8 flex flex-col items-center px-4 border-y border-[#FFB800]/10"
+      className="bg-[#111] pt-3 md:pt-5 pb-5 md:pb-8 flex flex-col items-center px-4 border-y border-white/10"
     >
-      <p className="text-[#FFB800] text-sm md:text-lg tracking-widest uppercase mb-4 md:mb-6 font-bold">
+      <p className="text-white text-sm md:text-lg tracking-widest uppercase mb-4 md:mb-6 font-bold">
         Elige el tamaño del vehículo
       </p>
 
@@ -67,7 +67,7 @@ export default function VehicleSizeSelector({ onSelect, selected }: VehicleSizeS
               onClick={() => handleSelect(size.id)}
               className={`flex flex-col items-center justify-center gap-1 md:gap-1.5 rounded-xl border px-3 py-3 md:px-5 md:py-4 transition-all duration-150 cursor-pointer min-w-[72px] md:min-w-[100px] ${
                 isActive
-                  ? 'border-[#FFB800]/90 bg-[#FFB800]/20'
+                  ? 'border-white/60 bg-white/10'
                   : 'border-white/10 bg-white/[0.03] hover:border-white/25 hover:bg-white/[0.06]'
               }`}
             >
@@ -82,7 +82,7 @@ export default function VehicleSizeSelector({ onSelect, selected }: VehicleSizeS
 
               <span
                 className={`text-[9px] md:text-xs font-semibold tracking-wide uppercase text-center leading-tight ${
-                  isActive ? 'text-[#FFB800]' : 'text-white/60'
+                  isActive ? 'text-white' : 'text-white/60'
                 }`}
               >
                 {size.label}

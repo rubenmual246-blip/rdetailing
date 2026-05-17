@@ -24,7 +24,7 @@ export const detailedServices = [
     id: 'absolute',
     name: 'Absolute Detailing',
     slogan: '¡Excelencia absoluta!',
-    price: 120,
+    price: 140,
     duration: 'Duración aproximada: 4 a 6 horas',
     image: 'https://readdy.ai/api/search-image?query=premium%20car%20interior%20leather%20seats%20close%20up%20detailing%20conditioning%20treatment%20beige%20cream%20leather%20no%20people%20nobody%20luxury%20vehicle%20cabin%20steering%20wheel%20detail%20studio%20lighting&width=800&height=600&seq=absolute-noperson-v3&orientation=landscape',
     included: [
@@ -73,9 +73,9 @@ export const extraPriceBySize: Record<string, Record<string, number>> = {
 };
 
 export const detailedPriceBySize: Record<string, Record<string, number>> = {
-  pequeno: { absolute: 100 },
-  normal: { absolute: 120 },
-  grande: { absolute: 150 },
+  pequeno: { absolute: 120 },
+  normal: { absolute: 140 },
+  grande: { absolute: 170 },
 };
 
 export const durationBySize: Record<string, Record<string, string>> = {

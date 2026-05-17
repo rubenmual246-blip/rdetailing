@@ -35,7 +35,7 @@ export default function Services({ selectedVehicleSize }: ServicesProps) {
   const absoluteImage = absoluteImagesBySize[size] ?? absoluteService.image;
 
   const absoluteWhatsappUrl = useMemo(() => {
-    const lines = ['Hola, buenas', `*${vehicleLabel}*`, `*${absoluteService.name}*`, `Total: ${absolutePrice}€`];
+    const lines = ['Hola, querría reservar:', `*${vehicleLabel}*`, `*${absoluteService.name}*`, `Total: ${absolutePrice}€`];
     return `https://wa.me/34676758480?text=${encodeURIComponent(lines.join('\n'))}`;
   }, [vehicleLabel, absoluteService.name, absolutePrice]);
 

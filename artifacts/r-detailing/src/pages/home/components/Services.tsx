@@ -15,10 +15,10 @@ interface ServicesProps {
 
 function SectionSeparator() {
   return (
-    <div className="flex items-center justify-center gap-3 py-2 md:py-3" aria-hidden="true">
-      <div className="h-px w-14 md:w-20 bg-[#FFB800]/35" />
+      <div className="flex items-center justify-center gap-3 py-2 md:py-3 px-0" aria-hidden="true">
+      <div className="h-px flex-1 bg-[#FFB800]/35" />
       <div className="w-2 h-2 rounded-full bg-[#FFB800]/75" />
-      <div className="h-px w-14 md:w-20 bg-[#FFB800]/35" />
+      <div className="h-px flex-1 bg-[#FFB800]/35" />
     </div>
   );
 }
@@ -65,7 +65,7 @@ export default function Services({ selectedVehicleSize }: ServicesProps) {
               </p>
             )}
             <h3 className="text-white text-sm md:text-xl font-light tracking-[0.1em] uppercase mb-1 md:mb-1.5 leading-tight">
-              {absoluteService.name}
+              Detallado Premium
             </h3>
             <p className="text-[#FFB800] text-xl md:text-4xl font-bold mb-0.5 leading-none">
               {absolutePrice}€
@@ -130,7 +130,7 @@ export default function Services({ selectedVehicleSize }: ServicesProps) {
         </div>
 
         <SectionSeparator />
-        <div className="h-8 md:h-12" aria-hidden="true" />
+        <div className="-mt-3 md:-mt-5" aria-hidden="true" />
 
         <BasicService service={basicService} vehicleSize={selectedVehicleSize} />
       </div>

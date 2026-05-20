@@ -3,7 +3,7 @@ export const basicService = {
   name: 'Lavado Básico',
   slogan: 'Limpieza de mantenimiento',
   price: 30,
-  duration: 'Duración aproximada: 2 horas',
+  duration: 'Duración aproximada: 1,5 horas',
   image: 'https://readdy.ai/api/search-image?query=car%20detailing%20close%20up%20foam%20soap%20bubbles%20covering%20black%20car%20hood%20exterior%20wash%20no%20people%20nobody%20professional%20auto%20detailing%20studio%20dark%20background%20dramatic%20lighting%20shiny%20paint%20surface&width=800&height=600&seq=essential-noperson-v3&orientation=landscape',
   included: [
     'Lavado basico exterior',
@@ -79,8 +79,8 @@ export const detailedPriceBySize: Record<string, Record<string, number>> = {
 export const durationBySize: Record<string, Record<string, string>> = {
   absolute: {
     pequeno: 'Duración aproximada: 4 a 6 horas',
-    normal: 'Duración aproximada: 6 a 8 horas',
-    grande: 'Duración aproximada: 6 a 8 horas',
+    normal: 'Duración aproximada: 6 a 7 horas',
+    grande: 'Duración aproximada: 7 a 8 horas',
   },
 };
 

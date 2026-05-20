@@ -39,7 +39,7 @@ export const detailedServices = [
 'Limpieza profunda de tapicería mediante sistema de inyección y extracción',
 'Tratamiento especial para textiles, cuero y alcántara',
 'Limpieza interior a vapor',
-'Lavado y detallado de compartimento motor (+15€ opcional)',
+'Limpieza y detallado de compartimento motor opcional (+15€)',
     ],
   },
 ];

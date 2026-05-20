@@ -55,7 +55,7 @@ export default function Services({ selectedVehicleSize }: ServicesProps) {
   const absoluteImage = absoluteImagesBySize[size] ?? absoluteService.image;
 
   const absoluteWhatsappUrl = useMemo(() => {
-    const lines = ['Hola, querría reservar:', `*${vehicleLabel}*`, `*${absoluteService.name}*`, `Total: ${absolutePrice}€`];
+    const lines = ['Hola, querría reservar:', `*${vehicleLabel}*`, 'Tamaño:', `*${absoluteService.name}*`, 'Muchas gracias !!' ];
     return `https://wa.me/34676758480?text=${encodeURIComponent(lines.join('\n'))}`;
   }, [vehicleLabel, absoluteService.name, absolutePrice]);
 
@@ -146,7 +146,7 @@ export default function Services({ selectedVehicleSize }: ServicesProps) {
                   className="w-full bg-[#FFB800] text-black py-2 md:py-3 rounded-full font-bold text-[9px] md:text-sm tracking-[0.1em] uppercase text-center flex items-center justify-center gap-1.5 cursor-pointer hover:bg-[#FFA500] transition-colors"
                 >
                   <i className="ri-whatsapp-line text-xs md:text-base"></i>
-                  RESERVAR ABSOLUTE DETAILING
+                  RESERVAR DETALLADO PREMIUM
                 </a>
               </div>
             </div>

@@ -45,7 +45,7 @@ const services: Service[] = [
     badge: 'Popular',
     price: 60,
     description: 'Para vehículos con más de 3 meses sin mantenimiento, pelos de mascota, arena o suciedad acumulada.',
-    image: 'https://images.unsplash.com/photo-1621963416880-a0e9fe1e8b65?w=700&h=320&fit=crop&auto=format',
+    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&h=320&fit=crop&auto=format',
     included: [
       'Aspirado profundo con Tornador',
       'Eliminación de pelos de mascota',
@@ -63,7 +63,7 @@ const services: Service[] = [
     badge: 'Premium',
     price: 110,
     description: 'Limpieza minuciosa interior/exterior con acabado de máxima calidad.',
-    image: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=700&h=320&fit=crop&auto=format',
+    image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=700&h=320&fit=crop&auto=format',
     included: [
       'Prelavado premium',
       'Lavado exterior con técnica de doble cubo y baño de microfibra',
@@ -106,14 +106,11 @@ function ServiceCard({ service }: { service: Service }) {
   }, [expanded]);
 
   const whatsappUrl = useMemo(() => {
-    const lines = [
-      'Hola, me interesa reservar:',
-      `*Servicio: ${service.name}*`,
-    ];
-    service.extras.forEach((extra, i) => {
-      if (selectedExtras[i]) lines.push(`+ ${extra.name}`);
-    });
-    lines.push('¡Muchas gracias!');
+    const extrasSelected = service.extras.filter((_, i) => selectedExtras[i]);
+    const lines = ['Hola, querría reservar:'];
+    lines.push(`*${service.name}*${extrasSelected.length > 0 ? ':' : ''}`);
+    extrasSelected.forEach((extra) => lines.push(`+ ${extra.name}`));
+    lines.push('\n¡Muchas gracias!');
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`;
   }, [service, selectedExtras]);
 
@@ -207,14 +204,21 @@ function ServiceCard({ service }: { service: Service }) {
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
-            className="flex-1 py-[9px] rounded-xl bg-[#FFB800] text-black text-[8.5px] tracking-[0.15em] uppercase font-bold text-center cursor-pointer hover:bg-[#FFC933] transition-colors duration-300 shadow-[0_4px_16px_rgba(255,184,0,0.25)]"
+            className="
+              flex-1 py-[9px] rounded-xl text-[8.5px] tracking-[0.15em] uppercase font-bold text-center cursor-pointer
+              transition-all duration-200
+              bg-[#FFB800] text-black border border-transparent
+              hover:bg-transparent hover:border-[#FFB800] hover:text-[#FFB800]
+              active:bg-[#FFB800]/10 active:border-[#FFB800] active:text-[#FFB800]
+              shadow-[0_4px_16px_rgba(255,184,0,0.25)] backdrop-blur-sm
+            "
           >
             Reservar
           </a>
         </div>
       </div>
 
-      {/* Expandable content */}
+      {/* Expandable content — clicking anywhere here also closes the card (no stopPropagation) */}
       <div
         className="overflow-hidden"
         style={{
@@ -223,7 +227,7 @@ function ServiceCard({ service }: { service: Service }) {
           transition: 'max-height 0.55s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease-in-out',
         }}
       >
-        <div className="px-5 pb-5" onClick={(e) => e.stopPropagation()}>
+        <div className="px-5 pb-5">
           <div
             className="h-px w-full mb-4"
             style={{ background: 'linear-gradient(90deg, transparent, rgba(255,184,0,0.3), transparent)' }}
@@ -239,7 +243,7 @@ function ServiceCard({ service }: { service: Service }) {
                 <span className="flex-shrink-0 mt-[2px] w-[14px] h-[14px] rounded-full border border-[#FFB800]/60 bg-[#FFB800]/10 flex items-center justify-center">
                   <i className="ri-check-line text-[#FFB800] text-[6px]" />
                 </span>
-                <span className="text-white/80 text-[10.5px] leading-[1.6] font-light">{item}</span>
+                <span className="text-white/85 text-[10.5px] leading-[1.6] font-light">{item}</span>
               </li>
             ))}
           </ul>
@@ -266,8 +270,8 @@ function ServiceCard({ service }: { service: Service }) {
                         px-3.5 py-2.5 rounded-xl border cursor-pointer
                         transition-all duration-300 ease-out text-left
                         ${isSelected
-                          ? 'bg-[#FFB800] border-[#FFB800] text-black shadow-[0_0_20px_rgba(255,184,0,0.25)]'
-                          : 'bg-white/[0.03] border-[#FFB800]/25 text-white/75 hover:border-[#FFB800]/60 hover:bg-[#FFB800]/[0.06] hover:text-white'
+                          ? 'bg-[#FFB800]/10 border-[#FFB800] text-[#FFB800] shadow-[0_0_16px_rgba(255,184,0,0.15)]'
+                          : 'bg-white/[0.03] border-[#FFB800]/25 text-white/80 hover:border-[#FFB800]/60 hover:bg-[#FFB800]/[0.06] hover:text-white'
                         }
                       `}
                     >
@@ -275,7 +279,7 @@ function ServiceCard({ service }: { service: Service }) {
                         {extra.name}
                       </span>
                       {extra.price !== null && (
-                        <span className={`text-[10px] font-semibold ml-2 flex-shrink-0 ${isSelected ? 'text-black/70' : 'text-[#FFB800]/80'}`}>
+                        <span className={`text-[10px] font-semibold ml-2 flex-shrink-0 ${isSelected ? 'text-[#FFB800]' : 'text-[#FFB800]/70'}`}>
                           +{extra.price}€
                         </span>
                       )}

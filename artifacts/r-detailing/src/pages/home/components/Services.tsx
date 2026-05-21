@@ -45,12 +45,14 @@ const services: Service[] = [
     badge: 'Popular',
     price: 60,
     description: 'Para vehículos con más de 3 meses sin mantenimiento, pelos de mascota, arena o suciedad acumulada.',
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&h=320&fit=crop&auto=format',
+    image: 'https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?w=700&h=320&fit=crop&auto=format',
     included: [
-      'Aspirado profundo con Tornador',
+      'Interior detallado',
+      'Aspirado profundo con sistema Tornador',
+      'Limpieza con brochas en zonas difíciles y ranuras',
       'Eliminación de pelos de mascota',
       'Limpieza profunda de alfombrillas',
-      'Limpieza detallada de plásticos y zonas interiores',
+      'Limpieza intensiva de plásticos interiores',
       'Limpieza más exhaustiva del vehículo',
     ],
     extras: [
@@ -105,6 +107,14 @@ function ServiceCard({ service }: { service: Service }) {
     return () => document.removeEventListener('click', handler, true);
   }, [expanded]);
 
+  const totalPrice = useMemo(() => {
+    return service.price + service.extras.reduce((sum, extra, i) => {
+      return sum + (selectedExtras[i] && extra.price ? extra.price : 0);
+    }, 0);
+  }, [service, selectedExtras]);
+
+  const hasExtras = Object.values(selectedExtras).some(Boolean);
+
   const whatsappUrl = useMemo(() => {
     const extrasSelected = service.extras.filter((_, i) => selectedExtras[i]);
     const lines = ['Hola, querría reservar:'];
@@ -117,6 +127,14 @@ function ServiceCard({ service }: { service: Service }) {
   const isPremium = service.id === 'premium';
 
   return (
+    <>
+    <style>{`
+      @keyframes priceUpdate {
+        0%   { opacity: 0.3; transform: scale(0.88) translateY(4px); }
+        60%  { opacity: 1;   transform: scale(1.06) translateY(-1px); }
+        100% { opacity: 1;   transform: scale(1)    translateY(0); }
+      }
+    `}</style>
     <div
       ref={cardRef}
       onClick={() => setExpanded((v) => !v)}
@@ -173,9 +191,21 @@ function ServiceCard({ service }: { service: Service }) {
         </h3>
 
         <div className="flex items-baseline gap-1 mb-3">
-          <span className="text-[#FFB800]/60 text-[10px] font-light">Desde</span>
-          <span className="text-[#FFB800] text-[30px] md:text-[34px] font-bold leading-none tracking-tight">
-            {service.price}
+          <span
+            className="text-[#FFB800]/60 text-[10px] font-light transition-all duration-300"
+            style={{ opacity: hasExtras ? 0 : 1, width: hasExtras ? 0 : undefined, overflow: 'hidden' }}
+          >
+            Desde&nbsp;
+          </span>
+          <span
+            key={totalPrice}
+            className="text-[#FFB800] font-bold leading-none tracking-tight"
+            style={{
+              fontSize: 'clamp(28px, 4vw, 34px)',
+              animation: 'priceUpdate 0.35s cubic-bezier(0.34,1.56,0.64,1)',
+            }}
+          >
+            {totalPrice}
           </span>
           <span className="text-[#FFB800]/60 text-sm font-light">€</span>
         </div>
@@ -270,7 +300,7 @@ function ServiceCard({ service }: { service: Service }) {
                         px-3.5 py-2.5 rounded-xl border cursor-pointer
                         transition-all duration-300 ease-out text-left
                         ${isSelected
-                          ? 'bg-[#FFB800]/10 border-[#FFB800] text-[#FFB800] shadow-[0_0_16px_rgba(255,184,0,0.15)]'
+                          ? 'bg-[#FFB800] border-[#FFB800] text-black shadow-[0_0_20px_rgba(255,184,0,0.3)]'
                           : 'bg-white/[0.03] border-[#FFB800]/25 text-white/80 hover:border-[#FFB800]/60 hover:bg-[#FFB800]/[0.06] hover:text-white'
                         }
                       `}
@@ -279,7 +309,7 @@ function ServiceCard({ service }: { service: Service }) {
                         {extra.name}
                       </span>
                       {extra.price !== null && (
-                        <span className={`text-[10px] font-semibold ml-2 flex-shrink-0 ${isSelected ? 'text-[#FFB800]' : 'text-[#FFB800]/70'}`}>
+                        <span className={`text-[10px] font-semibold ml-2 flex-shrink-0 ${isSelected ? 'text-black/60' : 'text-[#FFB800]/70'}`}>
                           +{extra.price}€
                         </span>
                       )}
@@ -292,6 +322,7 @@ function ServiceCard({ service }: { service: Service }) {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

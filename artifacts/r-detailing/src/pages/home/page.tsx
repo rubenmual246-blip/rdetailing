@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import Hero from './components/Hero';
 import WhatIsDetailing from './components/WhatIsDetailing';
-import VehicleSizeSelector from './components/VehicleSizeSelector';
 import Services from './components/Services';
 import Footer from './components/Footer';
 
@@ -50,8 +49,6 @@ function SectionDivider() {
 }
 
 export default function Home() {
-  const [selectedVehicleSize, setSelectedVehicleSize] = useState<string | null>('pequeno');
-
   return (
     <div className="min-h-screen bg-black w-full overflow-x-hidden pt-8 md:pt-0">
       <Hero />
@@ -59,9 +56,8 @@ export default function Home() {
         <SectionDivider />
       </div>
       <WhatIsDetailing />
-      <VehicleSizeSelector onSelect={setSelectedVehicleSize} selected={selectedVehicleSize} />
-      <section className="bg-black h-24 md:h-36 w-full" aria-hidden="true" />
-      <Services selectedVehicleSize={selectedVehicleSize} />
+      <section className="bg-black h-16 md:h-24 w-full" aria-hidden="true" />
+      <Services />
       <Footer />
     </div>
   );

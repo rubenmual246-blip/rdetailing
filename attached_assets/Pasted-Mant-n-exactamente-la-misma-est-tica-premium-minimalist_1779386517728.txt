@@ -1,0 +1,122 @@
+Mantén exactamente la misma estética premium, minimalista y moderna de la web actual. No cambiar colores, identidad visual ni estilo general. Solo quiero reorganizar y mejorar la sección de servicios.
+
+OBJETIVO:
+Que la sección de servicios sea más clara, más premium y más profesional, manteniendo el diseño elegante actual.
+
+CAMBIOS PRINCIPALES:
+
+1. Cambiar la sección de servicios para que existan solo 3 tarjetas:
+
+* Mantenimiento
+* Limpieza Profunda
+* Limpieza Premium
+
+2. Las tarjetas deben ser MÁS COMPACTAS y ESTRECHAS visualmente.
+   Actualmente ocupan demasiado ancho. Quiero un diseño más limpio y premium.
+
+3. Eliminar completamente cualquier sección relacionada con tamaños de vehículo.
+
+4. Mantener el sistema actual de desplegar información al pulsar cada tarjeta, con animaciones suaves y elegantes.
+
+5. Los extras deben aparecer como BOTONES PREMIUM INTERACTIVOS:
+
+* estilo moderno/minimalista
+* cuando NO estén seleccionados → color neutro elegante
+* cuando estén seleccionados → cambian a color destacado de la marca
+* con animación suave
+* estilo tipo “chips/buttons premium”
+
+---
+
+TARJETA 1:
+
+MANTENIMIENTO
+Desde 30€
+
+Texto corto:
+“Para vehículos mantenidos regularmente y con suciedad moderada.”
+
+AL DESPLEGAR:
+
+* Lavado exterior básico
+* Limpieza de llantas
+* Aspirado básico
+* Limpieza de salpicadero y plásticos
+* Limpieza de cristales
+
+EXTRAS (como botones interactivos):
+
+* Limpieza estética de motor (+35€)
+* Limpieza de tapicería
+* Limpieza profunda de alfombrillas
+
+---
+
+TARJETA 2:
+
+LIMPIEZA PROFUNDA
+Desde 60€
+
+Texto corto:
+“Para vehículos con más de 3 meses sin mantenimiento, pelos de mascota, arena o suciedad acumulada.”
+
+AL DESPLEGAR:
+
+* Interior detallado
+* Aspirado profundo con Tornador
+* Limpieza con brochas en zonas difíciles y ranuras
+* Eliminación de pelos de mascota
+* Limpieza profunda de alfombrillas
+* Limpieza detallada de plásticos y zonas interiores
+* Limpieza más exhaustiva del vehículo
+
+EXTRAS (como botones interactivos):
+
+* Limpieza estética de motor (+35€)
+
+---
+
+TARJETA 3:
+
+LIMPIEZA PREMIUM
+Desde 110€
+
+Texto corto:
+“Limpieza minuciosa interior/exterior con acabado premium.”
+
+AL DESPLEGAR:
+
+* Prelavado premium
+* Lavado exterior con técnica de doble cubo y baño de microfibra
+* Limpieza de llantas y eliminación de restos férricos
+* Limpieza exterior de puertas y gomas con brocha
+* Limpieza interior a vapor
+* Limpieza de tapicerías
+* Tratamiento para alcántara, textiles y cuero
+* Limpieza detallada de interiores
+* Limpieza de cristales
+* Atención máxima al detalle
+
+EXTRAS (como botones interactivos):
+
+* Limpieza estética de motor (+35€)
+
+---
+
+6. Mantener diseño responsive premium para móvil.
+
+7. Añadir microanimaciones suaves:
+
+* apertura/cierre de tarjetas
+* hover elegante
+* selección de extras
+* transiciones fluidas
+
+8. Quiero que toda la sección transmita:
+
+* exclusividad
+* limpieza premium
+* detailing moderno
+* servicio de calidad
+
+NO quiero aspecto de lavadero barato.

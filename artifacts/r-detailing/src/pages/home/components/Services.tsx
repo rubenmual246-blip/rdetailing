@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 
 const WHATSAPP_NUMBER = '34676758480';
 
@@ -35,8 +35,8 @@ const services: Service[] = [
     ],
     extras: [
       { name: 'Limpieza estética de vano motor', price: 35 },
-      { name: 'Limpieza de tapicería', price: null },
-      { name: 'Limpieza profunda de alfombrillas', price: null },
+      { name: 'Limpieza de tapicería', price: 20 },
+      { name: 'Limpieza profunda de alfombrillas', price: 15 },
     ],
   },
   {
@@ -47,9 +47,7 @@ const services: Service[] = [
     description: 'Para vehículos con más de 3 meses sin mantenimiento, pelos de mascota, arena o suciedad acumulada.',
     image: 'https://images.unsplash.com/photo-1621963416880-a0e9fe1e8b65?w=700&h=320&fit=crop&auto=format',
     included: [
-      'Interior detallado',
       'Aspirado profundo con Tornador',
-      'Limpieza con brochas en zonas difíciles y ranuras',
       'Eliminación de pelos de mascota',
       'Limpieza profunda de alfombrillas',
       'Limpieza detallada de plásticos y zonas interiores',
@@ -89,10 +87,23 @@ const services: Service[] = [
 function ServiceCard({ service }: { service: Service }) {
   const [expanded, setExpanded] = useState(false);
   const [selectedExtras, setSelectedExtras] = useState<Record<number, boolean>>({});
+  const cardRef = useRef<HTMLDivElement>(null);
 
-  const toggleExtra = (i: number) => {
+  const toggleExtra = (i: number, e: React.MouseEvent) => {
+    e.stopPropagation();
     setSelectedExtras((prev) => ({ ...prev, [i]: !prev[i] }));
   };
+
+  useEffect(() => {
+    if (!expanded) return;
+    const handler = (e: MouseEvent) => {
+      if (cardRef.current && !cardRef.current.contains(e.target as Node)) {
+        setExpanded(false);
+      }
+    };
+    document.addEventListener('click', handler, true);
+    return () => document.removeEventListener('click', handler, true);
+  }, [expanded]);
 
   const whatsappUrl = useMemo(() => {
     const lines = [
@@ -110,40 +121,38 @@ function ServiceCard({ service }: { service: Service }) {
 
   return (
     <div
+      ref={cardRef}
+      onClick={() => setExpanded((v) => !v)}
       className={`
-        group relative flex flex-col rounded-2xl overflow-hidden
-        border-2 transition-all duration-500 ease-out
+        group relative flex flex-col rounded-2xl overflow-hidden cursor-pointer
+        border-2 transition-all duration-500 ease-out select-none
         ${expanded
           ? 'border-[#FFB800] shadow-[0_0_40px_rgba(255,184,0,0.25),0_12px_40px_rgba(0,0,0,0.8)]'
-          : 'border-[#FFB800]/30 hover:border-[#FFB800]/70 shadow-[0_4px_28px_rgba(0,0,0,0.6)] hover:shadow-[0_8px_40px_rgba(255,184,0,0.12),0_12px_48px_rgba(0,0,0,0.8)]'
+          : 'border-[#FFB800]/30 hover:border-[#FFB800]/65 shadow-[0_4px_28px_rgba(0,0,0,0.6)] hover:shadow-[0_8px_40px_rgba(255,184,0,0.1),0_12px_48px_rgba(0,0,0,0.8)]'
         }
       `}
       style={{ background: 'linear-gradient(165deg, #141414 0%, #0b0b0b 100%)' }}
     >
-      {/* Golden glow line at top */}
+      {/* Golden top line */}
       <div
         className={`absolute top-0 left-0 right-0 h-[2px] z-10 transition-all duration-500 ${expanded ? 'opacity-100' : 'opacity-60 group-hover:opacity-90'}`}
         style={{ background: 'linear-gradient(90deg, transparent 0%, #FFB800 50%, transparent 100%)' }}
         aria-hidden="true"
       />
 
-      {/* Image banner */}
+      {/* Image */}
       <div className="relative overflow-hidden" style={{ height: '152px' }}>
         <img
           src={service.image}
           alt={service.name}
-          className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.05]"
-          onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            target.style.display = 'none';
-          }}
+          className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
         />
         <div
           className="absolute inset-0"
           style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.5) 55%, rgba(11,11,11,0.97) 100%)' }}
           aria-hidden="true"
         />
-        {/* Badge */}
         <div className="absolute top-3 left-3 z-10">
           <span
             className={`text-[7px] tracking-[0.2em] uppercase font-bold px-2.5 py-1 rounded-full ${
@@ -157,8 +166,8 @@ function ServiceCard({ service }: { service: Service }) {
         </div>
       </div>
 
-      {/* Card content */}
-      <div className="px-5 pt-4 pb-1 flex-1 flex flex-col">
+      {/* Card body */}
+      <div className="px-5 pt-4 pb-4 flex-1 flex flex-col">
         <p className="text-[#FFB800]/50 text-[7.5px] font-light tracking-[0.35em] uppercase mb-1.5">
           Servicio
         </p>
@@ -174,44 +183,38 @@ function ServiceCard({ service }: { service: Service }) {
           <span className="text-[#FFB800]/60 text-sm font-light">€</span>
         </div>
 
-        <p className="text-white/35 text-[10px] leading-[1.65] font-light mb-4">
+        <p className="text-white/40 text-[10px] leading-[1.65] font-light mb-4">
           {service.description}
         </p>
 
-        <div className="mt-auto pb-4">
+        {/* Two action buttons */}
+        <div className="mt-auto flex gap-2">
           <button
-            onClick={() => setExpanded((v) => !v)}
-            aria-expanded={expanded}
+            onClick={(e) => { e.stopPropagation(); setExpanded((v) => !v); }}
             className={`
-              group/btn w-full flex items-center justify-between
-              px-4 py-2.5 rounded-xl border cursor-pointer
-              transition-all duration-300 ease-out
+              flex-1 py-[9px] rounded-xl border text-[8.5px] tracking-[0.15em] uppercase font-light cursor-pointer
+              transition-all duration-300
               ${expanded
-                ? 'border-[#FFB800]/60 bg-[#FFB800]/10 text-[#FFB800]'
-                : 'border-[#FFB800]/20 bg-white/[0.03] text-white/50 hover:border-[#FFB800]/50 hover:bg-[#FFB800]/[0.05] hover:text-[#FFB800]/90'
+                ? 'border-[#FFB800] bg-black text-[#FFB800]'
+                : 'border-[#FFB800]/50 bg-black text-[#FFB800]/80 hover:border-[#FFB800] hover:text-[#FFB800]'
               }
             `}
           >
-            <span className="text-[9px] tracking-[0.2em] uppercase font-light">
-              {expanded ? 'Cerrar' : 'Más información'}
-            </span>
-            <span
-              className={`
-                flex-shrink-0 w-5 h-5 rounded-full border flex items-center justify-center
-                transition-all duration-300
-                ${expanded
-                  ? 'border-[#FFB800]/70 bg-[#FFB800]/15 rotate-45'
-                  : 'border-[#FFB800]/25 group-hover/btn:border-[#FFB800]/60'
-                }
-              `}
-            >
-              <span className="text-[11px] leading-none font-light select-none">+</span>
-            </span>
+            {expanded ? 'Cerrar' : 'Más info'}
           </button>
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="flex-1 py-[9px] rounded-xl bg-[#FFB800] text-black text-[8.5px] tracking-[0.15em] uppercase font-bold text-center cursor-pointer hover:bg-[#FFC933] transition-colors duration-300 shadow-[0_4px_16px_rgba(255,184,0,0.25)]"
+          >
+            Reservar
+          </a>
         </div>
       </div>
 
-      {/* Expandable section */}
+      {/* Expandable content */}
       <div
         className="overflow-hidden"
         style={{
@@ -220,23 +223,23 @@ function ServiceCard({ service }: { service: Service }) {
           transition: 'max-height 0.55s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease-in-out',
         }}
       >
-        <div className="px-5 pb-5">
+        <div className="px-5 pb-5" onClick={(e) => e.stopPropagation()}>
           <div
             className="h-px w-full mb-4"
-            style={{ background: 'linear-gradient(90deg, transparent, rgba(255,184,0,0.25), transparent)' }}
+            style={{ background: 'linear-gradient(90deg, transparent, rgba(255,184,0,0.3), transparent)' }}
             aria-hidden="true"
           />
 
-          <p className="text-[#FFB800]/60 text-[7.5px] tracking-[0.3em] uppercase font-light mb-3">
+          <p className="text-[#FFB800]/75 text-[7.5px] tracking-[0.3em] uppercase font-light mb-3">
             Incluye
           </p>
-          <ul className="space-y-[8px] mb-5">
+          <ul className="space-y-[9px] mb-5">
             {service.included.map((item, i) => (
               <li key={i} className="flex items-start gap-2.5">
-                <span className="flex-shrink-0 mt-[2px] w-[14px] h-[14px] rounded-full border border-[#FFB800]/50 bg-[#FFB800]/[0.08] flex items-center justify-center">
+                <span className="flex-shrink-0 mt-[2px] w-[14px] h-[14px] rounded-full border border-[#FFB800]/60 bg-[#FFB800]/10 flex items-center justify-center">
                   <i className="ri-check-line text-[#FFB800] text-[6px]" />
                 </span>
-                <span className="text-white/50 text-[10px] leading-[1.6] font-light">{item}</span>
+                <span className="text-white/80 text-[10.5px] leading-[1.6] font-light">{item}</span>
               </li>
             ))}
           </ul>
@@ -248,43 +251,31 @@ function ServiceCard({ service }: { service: Service }) {
                 style={{ background: 'linear-gradient(90deg, transparent, rgba(255,184,0,0.15), transparent)' }}
                 aria-hidden="true"
               />
-              <p className="text-[#FFB800]/60 text-[7.5px] tracking-[0.3em] uppercase font-light mb-3">
+              <p className="text-[#FFB800]/75 text-[7.5px] tracking-[0.3em] uppercase font-light mb-3">
                 Extras opcionales
               </p>
-              <div className="flex flex-wrap gap-2 mb-5">
+              <div className="flex flex-col gap-2 mb-5">
                 {service.extras.map((extra, i) => {
                   const isSelected = !!selectedExtras[i];
                   return (
                     <button
                       key={i}
-                      onClick={() => toggleExtra(i)}
+                      onClick={(e) => toggleExtra(i, e)}
                       className={`
-                        inline-flex items-center gap-1.5
-                        px-3 py-[7px] rounded-full border cursor-pointer
+                        w-full flex items-center justify-between
+                        px-3.5 py-2.5 rounded-xl border cursor-pointer
                         transition-all duration-300 ease-out text-left
                         ${isSelected
-                          ? 'bg-[#FFB800] border-[#FFB800] text-black shadow-[0_0_20px_rgba(255,184,0,0.3)]'
-                          : 'bg-white/[0.03] border-[#FFB800]/20 text-white/50 hover:border-[#FFB800]/50 hover:bg-[#FFB800]/[0.07] hover:text-white/80'
+                          ? 'bg-[#FFB800] border-[#FFB800] text-black shadow-[0_0_20px_rgba(255,184,0,0.25)]'
+                          : 'bg-white/[0.03] border-[#FFB800]/25 text-white/75 hover:border-[#FFB800]/60 hover:bg-[#FFB800]/[0.06] hover:text-white'
                         }
                       `}
                     >
-                      <span
-                        className={`
-                          flex-shrink-0 w-[14px] h-[14px] rounded-full border flex items-center justify-center
-                          transition-all duration-200
-                          ${isSelected ? 'border-black/30 bg-black/20' : 'border-[#FFB800]/30'}
-                        `}
-                      >
-                        {isSelected
-                          ? <i className="ri-check-line text-[7px] text-black" />
-                          : <span className="text-[8px] leading-none text-[#FFB800]/60">+</span>
-                        }
-                      </span>
-                      <span className="text-[9px] md:text-[10px] font-light tracking-[0.05em]">
+                      <span className="text-[10px] font-light tracking-[0.04em]">
                         {extra.name}
                       </span>
                       {extra.price !== null && (
-                        <span className={`text-[9px] font-semibold ${isSelected ? 'text-black/60' : 'text-[#FFB800]/40'}`}>
+                        <span className={`text-[10px] font-semibold ml-2 flex-shrink-0 ${isSelected ? 'text-black/70' : 'text-[#FFB800]/80'}`}>
                           +{extra.price}€
                         </span>
                       )}
@@ -294,17 +285,6 @@ function ServiceCard({ service }: { service: Service }) {
               </div>
             </>
           )}
-
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
-            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#FFB800] text-black font-bold text-[9px] md:text-[10px] tracking-[0.18em] uppercase cursor-pointer hover:bg-[#FFC933] transition-colors duration-300 shadow-[0_4px_24px_rgba(255,184,0,0.3)]"
-          >
-            <i className="ri-whatsapp-line text-xs md:text-sm" />
-            Reservar por WhatsApp
-          </a>
         </div>
       </div>
     </div>
@@ -329,13 +309,13 @@ export default function Services() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {services.map((service) => (
             <ServiceCard key={service.id} service={service} />
           ))}
         </div>
 
-        <p className="text-white/20 text-[8.5px] font-light text-center mt-8 tracking-wide">
+        <p className="text-white/25 text-[8.5px] font-light text-center mt-8 tracking-wide">
           Precios orientativos. El coste definitivo se confirma tras valoración presencial.
         </p>
       </div>

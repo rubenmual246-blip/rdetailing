@@ -25,7 +25,7 @@ const services: Service[] = [
     badge: 'Esencial',
     price: 30,
     description: 'Para vehículos mantenidos regularmente y con suciedad moderada.',
-    image: 'https://readdy.ai/api/search-image?query=black+luxury+car+exterior+professional+hand+wash+foam+bubbles+dark+dramatic+studio+lighting+elegant+premium+no+people+shiny+bodywork&width=700&height=320&seq=mant-banner-v2&orientation=landscape',
+    image: 'https://images.unsplash.com/photo-1607860108855-64acf2078ed9?w=700&h=320&fit=crop&auto=format',
     included: [
       'Lavado exterior básico',
       'Limpieza de llantas',
@@ -45,7 +45,7 @@ const services: Service[] = [
     badge: 'Popular',
     price: 60,
     description: 'Para vehículos con más de 3 meses sin mantenimiento, pelos de mascota, arena o suciedad acumulada.',
-    image: 'https://readdy.ai/api/search-image?query=car+interior+deep+cleaning+vacuum+pet+hair+removal+professional+detailing+dark+moody+atmospheric+studio+no+people+premium&width=700&height=320&seq=profunda-banner-v2&orientation=landscape',
+    image: 'https://images.unsplash.com/photo-1621963416880-a0e9fe1e8b65?w=700&h=320&fit=crop&auto=format',
     included: [
       'Interior detallado',
       'Aspirado profundo con Tornador',
@@ -65,7 +65,7 @@ const services: Service[] = [
     badge: 'Premium',
     price: 110,
     description: 'Limpieza minuciosa interior/exterior con acabado de máxima calidad.',
-    image: 'https://readdy.ai/api/search-image?query=luxury+car+interior+steam+cleaning+premium+detailing+leather+seats+dark+studio+atmospheric+vapor+professional+no+people&width=700&height=320&seq=premium-banner-v2&orientation=landscape',
+    image: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=700&h=320&fit=crop&auto=format',
     included: [
       'Prelavado premium',
       'Lavado exterior con técnica de doble cubo y baño de microfibra',
@@ -112,37 +112,44 @@ function ServiceCard({ service }: { service: Service }) {
     <div
       className={`
         group relative flex flex-col rounded-2xl overflow-hidden
-        border transition-all duration-500 ease-out
+        border-2 transition-all duration-500 ease-out
         ${expanded
-          ? 'border-[#FFB800]/50 shadow-[0_0_50px_rgba(255,184,0,0.12),0_12px_40px_rgba(0,0,0,0.7)]'
-          : 'border-white/[0.07] hover:border-[#FFB800]/20 shadow-[0_4px_28px_rgba(0,0,0,0.5)] hover:shadow-[0_8px_48px_rgba(0,0,0,0.7),0_0_20px_rgba(255,184,0,0.04)]'
+          ? 'border-[#FFB800] shadow-[0_0_40px_rgba(255,184,0,0.25),0_12px_40px_rgba(0,0,0,0.8)]'
+          : 'border-[#FFB800]/30 hover:border-[#FFB800]/70 shadow-[0_4px_28px_rgba(0,0,0,0.6)] hover:shadow-[0_8px_40px_rgba(255,184,0,0.12),0_12px_48px_rgba(0,0,0,0.8)]'
         }
       `}
       style={{ background: 'linear-gradient(165deg, #141414 0%, #0b0b0b 100%)' }}
     >
+      {/* Golden glow line at top */}
       <div
-        className={`absolute top-0 left-0 right-0 h-[1.5px] transition-all duration-500 z-10 ${expanded ? 'opacity-100' : 'opacity-30 group-hover:opacity-60'}`}
+        className={`absolute top-0 left-0 right-0 h-[2px] z-10 transition-all duration-500 ${expanded ? 'opacity-100' : 'opacity-60 group-hover:opacity-90'}`}
         style={{ background: 'linear-gradient(90deg, transparent 0%, #FFB800 50%, transparent 100%)' }}
         aria-hidden="true"
       />
 
-      <div className="relative overflow-hidden" style={{ height: '148px' }}>
+      {/* Image banner */}
+      <div className="relative overflow-hidden" style={{ height: '152px' }}>
         <img
           src={service.image}
           alt={service.name}
-          className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+          className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.style.display = 'none';
+          }}
         />
         <div
           className="absolute inset-0"
-          style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 60%, rgba(11,11,11,0.95) 100%)' }}
+          style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.5) 55%, rgba(11,11,11,0.97) 100%)' }}
           aria-hidden="true"
         />
+        {/* Badge */}
         <div className="absolute top-3 left-3 z-10">
           <span
-            className={`text-[7px] tracking-[0.22em] uppercase font-semibold px-2 py-[3px] rounded-full ${
+            className={`text-[7px] tracking-[0.2em] uppercase font-bold px-2.5 py-1 rounded-full ${
               isPremium
                 ? 'bg-[#FFB800] text-black'
-                : 'bg-white/10 border border-white/20 text-white/70 backdrop-blur-sm'
+                : 'bg-black/60 border border-[#FFB800]/50 text-[#FFB800] backdrop-blur-sm'
             }`}
           >
             {service.badge}
@@ -150,8 +157,9 @@ function ServiceCard({ service }: { service: Service }) {
         </div>
       </div>
 
+      {/* Card content */}
       <div className="px-5 pt-4 pb-1 flex-1 flex flex-col">
-        <p className="text-[#FFB800]/40 text-[7.5px] font-light tracking-[0.35em] uppercase mb-1.5">
+        <p className="text-[#FFB800]/50 text-[7.5px] font-light tracking-[0.35em] uppercase mb-1.5">
           Servicio
         </p>
         <h3 className="text-white text-[13px] md:text-[14px] font-light tracking-[0.1em] uppercase leading-tight mb-3">
@@ -159,14 +167,14 @@ function ServiceCard({ service }: { service: Service }) {
         </h3>
 
         <div className="flex items-baseline gap-1 mb-3">
-          <span className="text-[#FFB800]/50 text-[10px] font-light">Desde</span>
-          <span className="text-[#FFB800] text-[28px] md:text-[32px] font-bold leading-none tracking-tight">
+          <span className="text-[#FFB800]/60 text-[10px] font-light">Desde</span>
+          <span className="text-[#FFB800] text-[30px] md:text-[34px] font-bold leading-none tracking-tight">
             {service.price}
           </span>
-          <span className="text-[#FFB800]/50 text-sm font-light">€</span>
+          <span className="text-[#FFB800]/60 text-sm font-light">€</span>
         </div>
 
-        <p className="text-white/30 text-[10px] leading-[1.65] font-light mb-4">
+        <p className="text-white/35 text-[10px] leading-[1.65] font-light mb-4">
           {service.description}
         </p>
 
@@ -179,8 +187,8 @@ function ServiceCard({ service }: { service: Service }) {
               px-4 py-2.5 rounded-xl border cursor-pointer
               transition-all duration-300 ease-out
               ${expanded
-                ? 'border-[#FFB800]/40 bg-[#FFB800]/[0.06] text-[#FFB800]'
-                : 'border-white/[0.08] bg-white/[0.03] text-white/50 hover:border-[#FFB800]/25 hover:bg-[#FFB800]/[0.04] hover:text-[#FFB800]/80'
+                ? 'border-[#FFB800]/60 bg-[#FFB800]/10 text-[#FFB800]'
+                : 'border-[#FFB800]/20 bg-white/[0.03] text-white/50 hover:border-[#FFB800]/50 hover:bg-[#FFB800]/[0.05] hover:text-[#FFB800]/90'
               }
             `}
           >
@@ -192,8 +200,8 @@ function ServiceCard({ service }: { service: Service }) {
                 flex-shrink-0 w-5 h-5 rounded-full border flex items-center justify-center
                 transition-all duration-300
                 ${expanded
-                  ? 'border-[#FFB800]/60 bg-[#FFB800]/10 rotate-45'
-                  : 'border-white/20 group-hover/btn:border-[#FFB800]/40'
+                  ? 'border-[#FFB800]/70 bg-[#FFB800]/15 rotate-45'
+                  : 'border-[#FFB800]/25 group-hover/btn:border-[#FFB800]/60'
                 }
               `}
             >
@@ -203,6 +211,7 @@ function ServiceCard({ service }: { service: Service }) {
         </div>
       </div>
 
+      {/* Expandable section */}
       <div
         className="overflow-hidden"
         style={{
@@ -214,20 +223,20 @@ function ServiceCard({ service }: { service: Service }) {
         <div className="px-5 pb-5">
           <div
             className="h-px w-full mb-4"
-            style={{ background: 'linear-gradient(90deg, transparent, rgba(255,184,0,0.15), transparent)' }}
+            style={{ background: 'linear-gradient(90deg, transparent, rgba(255,184,0,0.25), transparent)' }}
             aria-hidden="true"
           />
 
-          <p className="text-[#FFB800]/50 text-[7.5px] tracking-[0.3em] uppercase font-light mb-3">
+          <p className="text-[#FFB800]/60 text-[7.5px] tracking-[0.3em] uppercase font-light mb-3">
             Incluye
           </p>
-          <ul className="space-y-[7px] mb-5">
+          <ul className="space-y-[8px] mb-5">
             {service.included.map((item, i) => (
               <li key={i} className="flex items-start gap-2.5">
-                <span className="flex-shrink-0 mt-[2px] w-[14px] h-[14px] rounded-full border border-[#FFB800]/40 bg-[#FFB800]/[0.06] flex items-center justify-center">
+                <span className="flex-shrink-0 mt-[2px] w-[14px] h-[14px] rounded-full border border-[#FFB800]/50 bg-[#FFB800]/[0.08] flex items-center justify-center">
                   <i className="ri-check-line text-[#FFB800] text-[6px]" />
                 </span>
-                <span className="text-white/45 text-[10px] leading-[1.6] font-light">{item}</span>
+                <span className="text-white/50 text-[10px] leading-[1.6] font-light">{item}</span>
               </li>
             ))}
           </ul>
@@ -236,10 +245,10 @@ function ServiceCard({ service }: { service: Service }) {
             <>
               <div
                 className="h-px w-full mb-4"
-                style={{ background: 'linear-gradient(90deg, transparent, rgba(255,184,0,0.08), transparent)' }}
+                style={{ background: 'linear-gradient(90deg, transparent, rgba(255,184,0,0.15), transparent)' }}
                 aria-hidden="true"
               />
-              <p className="text-[#FFB800]/50 text-[7.5px] tracking-[0.3em] uppercase font-light mb-3">
+              <p className="text-[#FFB800]/60 text-[7.5px] tracking-[0.3em] uppercase font-light mb-3">
                 Extras opcionales
               </p>
               <div className="flex flex-wrap gap-2 mb-5">
@@ -250,12 +259,12 @@ function ServiceCard({ service }: { service: Service }) {
                       key={i}
                       onClick={() => toggleExtra(i)}
                       className={`
-                        group/extra inline-flex items-center gap-1.5
+                        inline-flex items-center gap-1.5
                         px-3 py-[7px] rounded-full border cursor-pointer
                         transition-all duration-300 ease-out text-left
                         ${isSelected
-                          ? 'bg-[#FFB800] border-[#FFB800] text-black shadow-[0_0_16px_rgba(255,184,0,0.2)]'
-                          : 'bg-white/[0.03] border-white/10 text-white/40 hover:border-[#FFB800]/30 hover:bg-[#FFB800]/[0.05] hover:text-white/65'
+                          ? 'bg-[#FFB800] border-[#FFB800] text-black shadow-[0_0_20px_rgba(255,184,0,0.3)]'
+                          : 'bg-white/[0.03] border-[#FFB800]/20 text-white/50 hover:border-[#FFB800]/50 hover:bg-[#FFB800]/[0.07] hover:text-white/80'
                         }
                       `}
                     >
@@ -263,19 +272,19 @@ function ServiceCard({ service }: { service: Service }) {
                         className={`
                           flex-shrink-0 w-[14px] h-[14px] rounded-full border flex items-center justify-center
                           transition-all duration-200
-                          ${isSelected ? 'border-black/30 bg-black/20' : 'border-white/20'}
+                          ${isSelected ? 'border-black/30 bg-black/20' : 'border-[#FFB800]/30'}
                         `}
                       >
                         {isSelected
                           ? <i className="ri-check-line text-[7px] text-black" />
-                          : <span className="text-[8px] leading-none text-white/30">+</span>
+                          : <span className="text-[8px] leading-none text-[#FFB800]/60">+</span>
                         }
                       </span>
                       <span className="text-[9px] md:text-[10px] font-light tracking-[0.05em]">
                         {extra.name}
                       </span>
                       {extra.price !== null && (
-                        <span className={`text-[9px] font-semibold ${isSelected ? 'text-black/60' : 'text-white/25'}`}>
+                        <span className={`text-[9px] font-semibold ${isSelected ? 'text-black/60' : 'text-[#FFB800]/40'}`}>
                           +{extra.price}€
                         </span>
                       )}
@@ -291,10 +300,10 @@ function ServiceCard({ service }: { service: Service }) {
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
-            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#FFB800] text-black font-bold text-[9px] md:text-[10px] tracking-[0.18em] uppercase cursor-pointer hover:bg-[#FFC933] transition-colors duration-300 shadow-[0_4px_20px_rgba(255,184,0,0.2)]"
+            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#FFB800] text-black font-bold text-[9px] md:text-[10px] tracking-[0.18em] uppercase cursor-pointer hover:bg-[#FFC933] transition-colors duration-300 shadow-[0_4px_24px_rgba(255,184,0,0.3)]"
           >
             <i className="ri-whatsapp-line text-xs md:text-sm" />
-            Reservar
+            Reservar por WhatsApp
           </a>
         </div>
       </div>
@@ -314,19 +323,19 @@ export default function Services() {
             Elige tu servicio
           </h2>
           <div className="flex items-center justify-center mt-5" aria-hidden="true">
-            <div className="h-px w-14 bg-gradient-to-r from-transparent to-[#FFB800]/35" />
-            <div className="w-[5px] h-[5px] rounded-full bg-[#FFB800]/55 mx-2.5" />
-            <div className="h-px w-14 bg-gradient-to-l from-transparent to-[#FFB800]/35" />
+            <div className="h-px w-14 bg-gradient-to-r from-transparent to-[#FFB800]/40" />
+            <div className="w-[5px] h-[5px] rounded-full bg-[#FFB800]/60 mx-2.5" />
+            <div className="h-px w-14 bg-gradient-to-l from-transparent to-[#FFB800]/40" />
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-5">
           {services.map((service) => (
             <ServiceCard key={service.id} service={service} />
           ))}
         </div>
 
-        <p className="text-white/15 text-[8.5px] font-light text-center mt-8 tracking-wide">
+        <p className="text-white/20 text-[8.5px] font-light text-center mt-8 tracking-wide">
           Precios orientativos. El coste definitivo se confirma tras valoración presencial.
         </p>
       </div>
